@@ -61,7 +61,24 @@ namespace InventoryClient.ViewModel
                     PersonWindow personWindow = new PersonWindow(new Person());
                     if (personWindow.ShowDialog() == true)
                     {
-                        await SendClient(personWindow.Person);
+                        await sendClient(personWindow.Person);
+                    }
+                }));
+            }
+        }
+
+        private RelayCommand deleteCommand;
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand ?? (deleteCommand = new RelayCommand(async (selectedItem) =>
+                {
+                    Person? client = selectedItem as Person;
+                    if (client == null) return;
+                    if (MessageBox.Show("Вы действительно хотите удалить элемент?", "Внимание", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+                    {
+                        await delPerson(client.Personid);
                     }
                 }));
             }
@@ -96,7 +113,7 @@ namespace InventoryClient.ViewModel
                 return new ObservableCollection<Person>();
             }
         }
-        private async Task SendClient(Person person)
+        private async Task sendClient(Person person)
         {
             try
             {
@@ -108,7 +125,41 @@ namespace InventoryClient.ViewModel
                 string responseText = await response.Content.ReadAsStringAsync();
                 if (responseText == "Error")
                     MessageBox.Show("Пользователь с таким именем существует");
-                else if (responseText == "OK") ;
+                else if (responseText == "OK")
+                {
+                    MessageBox.Show("Пользователь добавлен");
+                    Load();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Ошибка HTTP: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        public async Task delPerson(int clientId)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(clientId);
+                var request = new HttpRequestMessage(HttpMethod.Delete, "http://127.0.0.1:8888/connection/");
+                request.Content = content;
+                request.Headers.Add("table", "person");
+                using var response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                if (responseText == "Error")
+                    MessageBox.Show("Пользователь с таким именем не существует");
+                else if (responseText == "OK")
+                {
+                    MessageBox.Show("Пользователь удален");
+                    var personToRemove = Persons.FirstOrDefault(p => p.Personid == clientId);
+                    if (personToRemove != null)
+                        Persons.Remove(personToRemove);
+                    Load();
+                }
             }
             catch (HttpRequestException ex)
             {

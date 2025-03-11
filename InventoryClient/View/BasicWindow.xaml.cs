@@ -58,6 +58,7 @@ namespace InventoryClient.View
         }
         public void SetUserInput(string userInput)
         {
+            string getInput = userInput;
             if (userInput == "Admin")
             {
 

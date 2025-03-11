@@ -66,14 +66,12 @@ namespace InventoryClient.ViewModel
                       string result = await VerifyPassword(userName, passWord);
                       if (result == "ok")
                       {
-                          //MessageBox.Show("OK");
                           BasicWindow basicWindow = new BasicWindow();
                           basicWindow.SetUserInput(userName);
                           basicWindow.Show();
                           
                       }
-                      else MessageBox.Show("Пользователь с таким именем или паролем " +
-                              "не существует!");
+                      else MessageBox.Show("Пользователя с таким именем или паролем не существует!");
                   }));
             }
         }
