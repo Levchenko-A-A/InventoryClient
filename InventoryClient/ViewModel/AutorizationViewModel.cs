@@ -60,33 +60,15 @@ namespace InventoryClient.ViewModel
                   (enter = new RelayCommand(async obj =>
                   {
                       PasswordBox? password = obj as PasswordBox;
-                      //HttpClient client = new HttpClient();
                       string userName = Login;
                       string passWord = password!.Password;
-                      //User user = new User { Login = Login, Password = password!.Password };
-                      //JsonContent content = JsonContent.Create(user);
-                      //using var response = await client.PostAsync("http://localhost:5000/login", content);
-                      //string responseText = await response.Content.ReadAsStringAsync();
                       string result = await VerifyPassword(userName, passWord);
                       if (result == "ok")
                       {
-                          //Visibility = Visibility.Hidden;
-                          //MenuWindow window = new MenuWindow();
-                          //window.Show();
                           MessageBox.Show("OK");
-                          //Response? resp = JsonSerializer.Deserialize<Response>(responseText);
-                          //if (resp != null)
-                          //{
-                          //    RegisterUser.UserName = resp.username;
-                          //    RegisterUser.access_token = resp.access_token;
-                          //    Visibility = Visibility.Hidden;
-                          //    MenuWindow window = new MenuWindow();
-                          //    window.Show();
-                          //}
                       }
                       else MessageBox.Show("Пользователь с таким именем или паролем " +
                               "не существует!");
-
                   }));
             }
         }
