@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace InventoryClient.ViewModel
+namespace InventoryClient
 {
     class RelayCommand : ICommand
     {
