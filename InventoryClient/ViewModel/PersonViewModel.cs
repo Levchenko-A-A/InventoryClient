@@ -37,7 +37,7 @@ namespace InventoryClient.ViewModel
             set
             {
                 persons = value;
-                OnPropertyChanged(nameof(Person));
+                OnPropertyChanged(nameof(Persons));
             }
         }
         private Person? selectedPerson;
@@ -155,9 +155,9 @@ namespace InventoryClient.ViewModel
                 else if (responseText == "OK")
                 {
                     MessageBox.Show("Пользователь удален");
-                    var personToRemove = Persons.FirstOrDefault(p => p.Personid == clientId);
-                    if (personToRemove != null)
-                        Persons.Remove(personToRemove);
+                    //var personToRemove = Persons.FirstOrDefault(p => p.Personid == clientId);
+                    //if (personToRemove != null)
+                    //    Persons.Remove(personToRemove);
                     Load();
                 }
             }
