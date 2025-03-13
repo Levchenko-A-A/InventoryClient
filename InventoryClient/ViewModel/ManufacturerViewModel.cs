@@ -78,7 +78,8 @@ namespace InventoryClient.ViewModel
                     ManufacturerWindow manufacturerWindow = new ManufacturerWindow(manufacturer);
                     if (manufacturerWindow.ShowDialog() == true)
                     {
-                        //await UpdateManufacturer(manufacturerWindow.Manufacturer);
+                        MessageBox.Show(manufacturerWindow.Manufacturer.Description);
+                        await updateManufacturer(manufacturerWindow.Manufacturer);
                     }
                 }));
             }
@@ -173,6 +174,27 @@ namespace InventoryClient.ViewModel
                     MessageBox.Show("Пользователь удален");
                     Load();
                 }
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Ошибка HTTP: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        public async Task updateManufacturer(Manufacturer manufacturer)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(manufacturer);
+                var request = new HttpRequestMessage(HttpMethod.Put, "http://127.0.0.1:8888/connection/");
+                request.Content = content;
+                request.Headers.Add("table", "manufacturer");
+                using var response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseText);
             }
             catch (HttpRequestException ex)
             {
