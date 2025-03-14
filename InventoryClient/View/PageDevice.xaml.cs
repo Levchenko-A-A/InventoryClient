@@ -23,6 +23,7 @@ namespace InventoryClient.View
         public PageDevice()
         {
             InitializeComponent();
+            //hjhjhhjkj
         }
     }
 }
