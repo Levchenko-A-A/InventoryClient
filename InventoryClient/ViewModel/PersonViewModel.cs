@@ -83,6 +83,24 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
+        private RelayCommand usersCommand;
+        public RelayCommand UsersCommand
+        {
+            get
+            {
+                return usersCommand ?? (usersCommand = new RelayCommand(async obj =>
+                {
+                    RoleWindow roleWindow = new RoleWindow();
+                    roleWindow.Show();
+                    
+                    //PersonWindow personWindow = new PersonWindow(new Person());
+                    //if (personWindow.ShowDialog() == true)
+                    //{
+                    //    await sendClient(personWindow.Person);
+                    //}
+                }));
+            }
+        }
 
         private async Task<ObservableCollection<Person>> getPerson()
         {
