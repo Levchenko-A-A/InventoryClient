@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryClient.Model
 {
-    class Personrole
+    public class Personrole
     {
         public int Userroleid { get; set; }
 

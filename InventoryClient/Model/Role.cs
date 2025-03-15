@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryClient.Model
 {
-    class Role
+    public class Role
     {
         [JsonPropertyName("roleid")]
         public int Roleid { get; set; }

@@ -66,20 +66,20 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
-        private RelayCommand updateCommand;
-        public RelayCommand UpdateCommand
+        private RelayCommand updateRoleCommand;
+        public RelayCommand UpdateRoleCommand
         {
             get
             {
-                return updateCommand ?? (updateCommand = new RelayCommand(async (selectedItem) =>
+                return updateRoleCommand ?? (updateRoleCommand = new RelayCommand(async (selectedItem) =>
                 {
-                    Manufacturer? manufacturer = selectedItem as Manufacturer;
-                    if (manufacturer == null) return;
-                    ManufacturerWindow manufacturerWindow = new ManufacturerWindow(manufacturer);
-                    if (manufacturerWindow.ShowDialog() == true)
+                    Role? role = selectedItem as Role;
+                    if (role == null) return;
+                    RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(role);
+                    if (roleAddUpdateWindow.ShowDialog() == true)
                     {
-                        MessageBox.Show(manufacturerWindow.Manufacturer.Description);
-                        await updateManufacturer(manufacturerWindow.Manufacturer);
+                        MessageBox.Show(roleAddUpdateWindow.Role.Description);
+                        await updateRole(roleAddUpdateWindow.Role);
                     }
                 }));
             }
@@ -184,14 +184,14 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
-        public async Task updateManufacturer(Manufacturer manufacturer)
+        public async Task updateRole(Role role)
         {
             try
             {
-                JsonContent content = JsonContent.Create(manufacturer);
+                JsonContent content = JsonContent.Create(role);
                 var request = new HttpRequestMessage(HttpMethod.Put, "http://127.0.0.1:8888/connection/");
                 request.Content = content;
-                request.Headers.Add("table", "manufacturer");
+                request.Headers.Add("table", "role");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(responseText);

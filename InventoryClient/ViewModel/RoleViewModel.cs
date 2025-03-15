@@ -51,21 +51,21 @@ namespace InventoryClient.ViewModel
             }
         }
 
-        //private RelayCommand addRoleCommand;
-        //public RelayCommand AddRoleCommand
-        //{
-        //    get
-        //    {
-        //        return addRoleCommand ?? (addRoleCommand = new RelayCommand(async obj =>
-        //        {
-        //            PersonWindow personWindow = new PersonWindow(new Role());
-        //            if (personWindow.ShowDialog() == true)
-        //            {
-        //                await sendRole(personWindow.Role);
-        //            }
-        //        }));
-        //    }
-        //}
+        private RelayCommand addRoleCommand;
+        public RelayCommand AddRoleCommand
+        {
+            get
+            {
+                return addRoleCommand ?? (addRoleCommand = new RelayCommand(async obj =>
+                {
+                    RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(new Role());
+                    if (roleAddUpdateWindow.ShowDialog() == true)
+                    {
+                        await sendRole(roleAddUpdateWindow.Role);
+                    }
+                }));
+            }
+        }
 
         private RelayCommand deleteRoleCommand;
         public RelayCommand DeleteRoleCommand
@@ -83,7 +83,24 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
-
+        private RelayCommand updateRoleCommand;
+        public RelayCommand UpdateRoleCommand
+        {
+            get
+            {
+                return updateRoleCommand ?? (updateRoleCommand = new RelayCommand(async (selectedItem) =>
+                {
+                    Role? role = selectedItem as Role;
+                    if (role == null) return;
+                    RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(role);
+                    if (roleAddUpdateWindow.ShowDialog() == true)
+                    {
+                        MessageBox.Show(roleAddUpdateWindow.Role.Description);
+                        await updateRole(roleAddUpdateWindow.Role);
+                    }
+                }));
+            }
+        }
         private async Task<ObservableCollection<Role>> getRole()
         {
             try
@@ -157,6 +174,27 @@ namespace InventoryClient.ViewModel
                     MessageBox.Show("Пользователь удален");
                     Load();
                 }
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Ошибка HTTP: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        public async Task updateRole(Role role)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(role);
+                var request = new HttpRequestMessage(HttpMethod.Put, "http://127.0.0.1:8888/connection/");
+                request.Content = content;
+                request.Headers.Add("table", "role");
+                using var response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseText);
             }
             catch (HttpRequestException ex)
             {
