@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using InventoryClient.ViewModel;
 
 namespace InventoryClient.View
 {
@@ -23,6 +24,7 @@ namespace InventoryClient.View
         public PagePersonrole()
         {
             InitializeComponent();
+            DataContext = new PersonroleViewModel();
         }
     }
 }
