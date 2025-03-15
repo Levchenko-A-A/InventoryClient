@@ -8,6 +8,22 @@
         mc:Ignorable="d"
         Title="RoleWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Grid.Column="0" Grid.Row="0" Content="PersonRol" Margin="20 30" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click"/>
+                <Button Grid.Column="0" Grid.Row="1" Content="Роли" Margin="20 30" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click_1"/>
+                <Button Grid.Column="0" Grid.Row="5" Content="Выход" Margin="20 30" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click_2"/>
+            </Grid>
+            <Frame Grid.Column="1" x:Name="RoleFrame"/>
+        </Grid>
     </Grid>
 </Window>

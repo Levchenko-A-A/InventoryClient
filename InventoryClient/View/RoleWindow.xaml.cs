@@ -22,6 +22,23 @@ namespace InventoryClient.View
         public RoleWindow()
         {
             InitializeComponent();
+            RoleFrame.Navigate(new PageRole());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RoleFrame.Navigate(new PagePersonrole());
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            RoleFrame.Navigate(new PageRole());
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+        
+            this.Close();
         }
     }
 }
