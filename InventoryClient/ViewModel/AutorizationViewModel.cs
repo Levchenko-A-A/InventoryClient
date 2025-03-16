@@ -70,7 +70,6 @@ namespace InventoryClient.ViewModel
                       {
                           Visibility = Visibility.Hidden;
                           BasicWindow basicWindow = new BasicWindow();
-                          basicWindow.SetUserInput(userName);
                           basicWindow.Show();
                       }
                       else MessageBox.Show("Пользователя с таким именем или паролем не существует!");
