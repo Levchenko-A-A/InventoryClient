@@ -17,6 +17,7 @@ namespace InventoryClient.ViewModel
     class AutorizationViewModel: BaseViewModel
     {
         private static HttpClient httpClient = new HttpClient();
+        JsonUser RegisterUser= new JsonUser();
 
         private Visibility visibility;
         public Visibility Visibility
@@ -63,13 +64,14 @@ namespace InventoryClient.ViewModel
                       PasswordBox? password = obj as PasswordBox;
                       string userName = Login;
                       string passWord = password!.Password;
+                      RegisterUser.UserName = Login;
                       string result = await VerifyPassword(userName, passWord);
                       if (result == "ok")
                       {
+                          Visibility = Visibility.Hidden;
                           BasicWindow basicWindow = new BasicWindow();
                           basicWindow.SetUserInput(userName);
                           basicWindow.Show();
-                          
                       }
                       else MessageBox.Show("Пользователя с таким именем или паролем не существует!");
                   }));

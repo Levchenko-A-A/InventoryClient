@@ -55,19 +55,15 @@ namespace InventoryClient.View
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-        public void SetUserInput(string userInput)
-        {
-            string getInput = userInput;
-            if (userInput == "Admin")
-            {
-
-                //ExitButton.IsEnabled = true;
-            }
-            else
-            {
-                //ExitButton.IsEnabled = false;
-            }
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            //foreach (Window window in Application.Current.Windows)
+            //{
+            //    if(window is MainWindow main)
+            //    {
+            //        main.Visibility = Visibility.Visible;
+            //    }
+            //}
         }
     }
 }
