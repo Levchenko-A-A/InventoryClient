@@ -54,7 +54,7 @@ namespace InventoryClient.ViewModel
             {
                 return addCommand ?? (addCommand = new RelayCommand(async obj =>
                 {
-                    CategoryWindow categoryWindow = new CategoryWindow(new Category());
+                    CategoryWindow categoryWindow = new CategoryWindow (new Category());
                     if (categoryWindow.ShowDialog() == true)
                     {
                         await sendCategory(categoryWindow.Category);
@@ -141,7 +141,7 @@ namespace InventoryClient.ViewModel
                     MessageBox.Show("Такая категория уже существует");
                 else if (responseText == "OK")
                 {
-                    MessageBox.Show("Категория добавлен");
+                    MessageBox.Show("Категория добавленa");
                     Load();
                 }
             }

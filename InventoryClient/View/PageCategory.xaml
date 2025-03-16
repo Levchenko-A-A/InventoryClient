@@ -43,7 +43,7 @@
             Width="30" />
             </Button>
         </Grid>
-        <ListBox Grid.Column="0" Name="ClientList" ItemsSource="{Binding Manufacturers}"  SelectedItem="{Binding SelectedManufacturer}" >
+        <ListBox Grid.Column="0" Name="ClientList" ItemsSource="{Binding Categories}"  SelectedItem="{Binding SelectedCategory}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <materialDesign:Card
@@ -54,7 +54,7 @@
                Margin="10 10"
                UniformCornerRadius="6">
                         <StackPanel>
-                            <TextBlock Text="{Binding Manufacturerid}" FontSize="25" />
+                            <TextBlock Text="{Binding Categoryid}" FontSize="25" />
                             <TextBlock Text="{Binding Name}" FontSize="25" />
                             <TextBlock Text="{Binding Description}" FontSize="20" />
                             <TextBlock Text="{Binding Createdat}" FontSize="20" />
