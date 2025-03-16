@@ -31,7 +31,6 @@ public partial class Manufacturer
             OnProperyChanged(nameof(name));
         }
     }
-
     private string description;
     [JsonPropertyName("description")]
     public string? Description 
