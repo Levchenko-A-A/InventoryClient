@@ -36,7 +36,7 @@
                 <materialDesign:PackIcon Kind="Delete" Height="30" Width="30" />
             </Button>
         </Grid>
-        <ListBox Grid.Column="0" Name="ClientList" ItemsSource="{Binding PersonRole}"  SelectedItem="{Binding SelectedPersonRole}" >
+        <ListBox Grid.Column="0" Name="ClientList" ItemsSource="{Binding PersonRoles}"  SelectedItem="{Binding SelectedPersonRole}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <materialDesign:Card

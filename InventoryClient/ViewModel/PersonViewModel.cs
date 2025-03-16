@@ -51,28 +51,28 @@ namespace InventoryClient.ViewModel
             }
         }
 
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        private RelayCommand addPersonCommand;
+        public RelayCommand AddPersonCommand
         {
             get
             {
-                return addCommand ?? (addCommand = new RelayCommand(async obj =>
+                return addPersonCommand ?? (addPersonCommand = new RelayCommand(async obj =>
                 {
                     PersonWindow personWindow = new PersonWindow(new Person());
                     if (personWindow.ShowDialog() == true)
                     {
-                        await sendClient(personWindow.Person);
+                        await sendPerson(personWindow.Person);
                     }
                 }));
             }
         }
 
-        private RelayCommand deleteCommand;
-        public RelayCommand DeleteCommand
+        private RelayCommand deletePersonCommand;
+        public RelayCommand DeletePersonCommand
         {
             get
             {
-                return deleteCommand ?? (deleteCommand = new RelayCommand(async (selectedItem) =>
+                return deletePersonCommand ?? (deletePersonCommand = new RelayCommand(async (selectedItem) =>
                 {
                     Person? client = selectedItem as Person;
                     if (client == null) return;
@@ -83,21 +83,32 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
+        //private RelayCommand updateCommand;
+        //public RelayCommand UpdateCommand
+        //{
+        //    get
+        //    {
+        //        return usersCommand ?? (usersCommand = new RelayCommand(async obj =>
+        //        {
+        //            Person? person = selectedPerson as Person;
+        //            if (person == null) return;
+        //            PersonWindow personWindow = new PersonWindow(person);
+        //            if (personWindow.ShowDialog() == true)
+        //            {
+        //                await updateClient(personWindow.Person);
+        //            }
+        //        }));
+        //    }
+        //}
         private RelayCommand usersCommand;
         public RelayCommand UsersCommand
         {
             get
             {
-                return usersCommand ?? (usersCommand = new RelayCommand(async obj =>
+                return usersCommand ?? (usersCommand = new RelayCommand(obj =>
                 {
                     RoleWindow roleWindow = new RoleWindow();
                     roleWindow.Show();
-                    
-                    //PersonWindow personWindow = new PersonWindow(new Person());
-                    //if (personWindow.ShowDialog() == true)
-                    //{
-                    //    await sendClient(personWindow.Person);
-                    //}
                 }));
             }
         }
@@ -131,7 +142,7 @@ namespace InventoryClient.ViewModel
                 return new ObservableCollection<Person>();
             }
         }
-        private async Task sendClient(Person person)
+        private async Task sendPerson(Person person)
         {
             try
             {
@@ -173,9 +184,6 @@ namespace InventoryClient.ViewModel
                 else if (responseText == "OK")
                 {
                     MessageBox.Show("Пользователь удален");
-                    //var personToRemove = Persons.FirstOrDefault(p => p.Personid == clientId);
-                    //if (personToRemove != null)
-                    //    Persons.Remove(personToRemove);
                     Load();
                 }
             }

@@ -51,51 +51,51 @@ namespace InventoryClient.ViewModel
             }
         }
 
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        private RelayCommand addManufCommand;
+        public RelayCommand AddManufCommand
         {
             get
             {
-                return addCommand ?? (addCommand = new RelayCommand(async obj =>
+                return addManufCommand ?? (addManufCommand = new RelayCommand(async obj =>
                 {
                     ManufacturerWindow manufacturerWindow = new ManufacturerWindow(new Manufacturer());
                     if (manufacturerWindow.ShowDialog() == true)
                     {
-                        await sendManufacturer(manufacturerWindow.Manufacturer);
+                        await sendManuf(manufacturerWindow.Manufacturer);
                     }
                 }));
             }
         }
-        private RelayCommand updateRoleCommand;
-        public RelayCommand UpdateRoleCommand
+        private RelayCommand updateManufCommand;
+        public RelayCommand UpdateManufCommand
         {
             get
             {
-                return updateRoleCommand ?? (updateRoleCommand = new RelayCommand(async (selectedItem) =>
+                return updateManufCommand ?? (updateManufCommand = new RelayCommand(async (selectedItem) =>
                 {
-                    Role? role = selectedItem as Role;
-                    if (role == null) return;
-                    RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(role);
-                    if (roleAddUpdateWindow.ShowDialog() == true)
+                    Manufacturer? manuf = selectedItem as Manufacturer;
+                    if (manuf == null) return;
+                    ManufacturerWindow manufacturerWindow = new ManufacturerWindow(manuf);
+                    if (manufacturerWindow.ShowDialog() == true)
                     {
-                        MessageBox.Show(roleAddUpdateWindow.Role.Description);
-                        await updateRole(roleAddUpdateWindow.Role);
+                        MessageBox.Show(manufacturerWindow.Manufacturer.Description);
+                        await updateManuf(manufacturerWindow.Manufacturer);
                     }
                 }));
             }
         }
-        private RelayCommand deleteCommand;
-        public RelayCommand DeleteCommand
+        private RelayCommand deleteManufCommand;
+        public RelayCommand DeleteManufCommand
         {
             get
             {
-                return deleteCommand ?? (deleteCommand = new RelayCommand(async (selectedItem) =>
+                return deleteManufCommand ?? (deleteManufCommand = new RelayCommand(async (selectedItem) =>
                 {
                     Manufacturer? manufacturer = selectedItem as Manufacturer;
                     if (manufacturer == null) return;
                     if (MessageBox.Show("Вы действительно хотите удалить элемент?", "Внимание", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
                     {
-                        await delPerson(manufacturer.Manufacturerid);
+                        await delManuf(manufacturer.Manufacturerid);
                     }
                 }));
             }
@@ -130,7 +130,7 @@ namespace InventoryClient.ViewModel
             }
         }
 
-        private async Task sendManufacturer(Manufacturer manufacturer)
+        private async Task sendManuf(Manufacturer manufacturer)
         {
             try
             {
@@ -157,11 +157,11 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
-        public async Task delPerson(int clientId)
+        public async Task delManuf(int manufId)
         {
             try
             {
-                JsonContent content = JsonContent.Create(clientId);
+                JsonContent content = JsonContent.Create(manufId);
                 var request = new HttpRequestMessage(HttpMethod.Delete, "http://127.0.0.1:8888/connection/");
                 request.Content = content;
                 request.Headers.Add("table", "manufacturer");
@@ -184,14 +184,14 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
-        public async Task updateRole(Role role)
+        public async Task updateManuf(Manufacturer manuf)
         {
             try
             {
-                JsonContent content = JsonContent.Create(role);
+                JsonContent content = JsonContent.Create(manuf);
                 var request = new HttpRequestMessage(HttpMethod.Put, "http://127.0.0.1:8888/connection/");
                 request.Content = content;
-                request.Headers.Add("table", "role");
+                request.Headers.Add("table", "manufacturer");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(responseText);
