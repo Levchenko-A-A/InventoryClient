@@ -24,6 +24,7 @@ namespace InventoryClient.View
         public PageDevice()
         {
             InitializeComponent();
+            DataContext = new DeviceViewModel();
         }
     }
 }
