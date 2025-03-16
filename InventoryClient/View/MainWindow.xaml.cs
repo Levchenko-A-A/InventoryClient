@@ -24,4 +24,9 @@ public partial class MainWindow : Window
         Instance = this;
         DataContext = new AutorizationViewModel();
     }
+
+    private void Grid_KeyDown(object sender, KeyEventArgs e)
+    {
+
+    }
 }

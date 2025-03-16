@@ -55,15 +55,15 @@ namespace InventoryClient.View
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             this.Close();
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            //foreach (Window window in Application.Current.Windows)
-            //{
-            //    if(window is MainWindow main)
-            //    {
-            //        main.Visibility = Visibility.Visible;
-            //    }
-            //}
+            //MainWindow mainWindow = new MainWindow();
+            //mainWindow.Show();
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is MainWindow main)
+                {
+                    main.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }
