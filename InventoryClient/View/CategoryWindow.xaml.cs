@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryClient.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,21 @@ namespace InventoryClient.View
     /// </summary>
     public partial class CategoryWindow : Window
     {
-        public CategoryWindow()
+        public Category Category { get; set; }
+        public CategoryWindow (Category c)
         {
             InitializeComponent();
+            Category = c;
+            DataContext = Category;
+        }
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }
