@@ -21,6 +21,7 @@ namespace InventoryClient.ViewModel
             httpClient = new HttpClient();
             Load();
         }
+
         private void Load()
         {
             Categories = null;
