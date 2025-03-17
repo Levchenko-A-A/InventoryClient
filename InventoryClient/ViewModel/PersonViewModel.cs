@@ -88,7 +88,7 @@ namespace InventoryClient.ViewModel
         {
             try
             {
-                StringContent content = new StringContent("getPerson");
+                StringContent content = new StringContent("getPersonAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, "http://127.0.0.1:8888/connection/");
                 request.Headers.Add("table", "person");
                 request.Content = content;

@@ -43,7 +43,8 @@
             Width="30" />
             </Button>
         </Grid>
-        <ListBox Grid.Column="0" Name="ClientList" ItemsSource="{Binding Categories}"  SelectedItem="{Binding SelectedCategory}" >
+        <ListBox Grid.Column="0" Name="ClientList" ItemsSource="{Binding Categories}"  
+                 SelectedItem="{Binding SelectedCategory}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <materialDesign:Card

@@ -107,8 +107,8 @@ namespace InventoryClient.ViewModel
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
-                List<Category> clients = JsonSerializer.Deserialize<List<Category>>(responseText)!;
-                return new ObservableCollection<Category>(clients);
+                List<Category> categories = JsonSerializer.Deserialize<List<Category>>(responseText)!;
+                return new ObservableCollection<Category>(categories);
             }
             catch (HttpRequestException ex)
             {
@@ -161,7 +161,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(clientId);
                 var request = new HttpRequestMessage(HttpMethod.Delete, "http://127.0.0.1:8888/connection/");
                 request.Content = content;
-                request.Headers.Add("table", "categories");
+                request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 if (responseText == "Error")
@@ -188,7 +188,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(category);
                 var request = new HttpRequestMessage(HttpMethod.Put, "http://127.0.0.1:8888/connection/");
                 request.Content = content;
-                request.Headers.Add("table", "categories");
+                request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(responseText);
