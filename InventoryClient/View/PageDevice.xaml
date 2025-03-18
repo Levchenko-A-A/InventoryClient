@@ -9,9 +9,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageDevice">
-    <!--<Page.Resources>
+    <Page.Resources>
         <converter:CategoryidToNameConverter x:Key="CategoryIdToName"/>
-    </Page.Resources>-->
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="9*"/>
@@ -51,7 +51,7 @@
                         <StackPanel>
                             <TextBlock Text="{Binding Deviceid}" FontSize="25" />
                             <TextBlock Text="{Binding Name}" FontSize="25" />
-                            <TextBlock Text="{Binding Path=Categoryid}" FontSize="25" />
+                            <TextBlock Text="{Binding Path=Categoryid, Converter={StaticResource CategoryIdToName}}" FontSize="25" />
                             <TextBlock Text="{Binding Manufacturerid}" FontSize="25" />
                             <TextBlock Text="{Binding Locationid}" FontSize="25" />
                             <TextBlock Text="{Binding Description}" FontSize="20" />

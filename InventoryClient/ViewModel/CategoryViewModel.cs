@@ -103,7 +103,7 @@ namespace InventoryClient.ViewModel
         {
             try
             {
-                StringContent content = new StringContent("getCategory");
+                StringContent content = new StringContent("getCategoryAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, "http://127.0.0.1:8888/connection/");
                 request.Headers.Add("table", "category");
                 request.Content = content;

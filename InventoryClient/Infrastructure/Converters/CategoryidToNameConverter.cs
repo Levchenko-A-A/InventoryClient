@@ -19,8 +19,7 @@ namespace InventoryClient.Infrastructure.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
-            //return Task.Run(() => getCategoryName((int)value)).Result;
+            return Task.Run(() => getCategoryName((int)value)).Result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
