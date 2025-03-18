@@ -17,17 +17,11 @@ namespace InventoryClient.ViewModel
     class PersonroleViewModel: BaseViewModel
     {
         private HttpClient httpClient;
-        public ICommand AddPersonRoleCommand { get; }
-        public ICommand UpdatePersonRoleCommand { get; }
-        public ICommand DeletePersonRoleCommand { get; }
 
         public PersonroleViewModel()
         {
             httpClient = new HttpClient();
             Load();
-            AddPersonRoleCommand = new RelayCommand(OnAddPersonRoleClick, CanExecuteOnAddPersonRoleClick);
-            UpdatePersonRoleCommand = new RelayCommand(OnUpdatePersonRoleClick, CanExecuteUpdatePersonRoleClick);
-            DeletePersonRoleCommand = new RelayCommand(OnDeletePersonRoleClick, CanExecuteDeletePersonRoleClick);
         }
         private void Load()
         {
@@ -57,12 +51,12 @@ namespace InventoryClient.ViewModel
             }
         }
 
-        //private RelayCommand addPersonRoleCommand;
-        //public RelayCommand AddPersonRoleCommand
+        //private RelayCommand addCommand;
+        //public RelayCommand AddCommand
         //{
         //    get
         //    {
-        //        return addPersonRoleCommand ?? (addPersonRoleCommand = new RelayCommand(async obj =>
+        //        return addCommand ?? (addCommand = new RelayCommand(async obj =>
         //        {
         //            RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(new Role());
         //            if (roleAddUpdateWindow.ShowDialog() == true)
@@ -72,12 +66,12 @@ namespace InventoryClient.ViewModel
         //        }));
         //    }
         //}
-        //private RelayCommand deletePersonRoleCommand;
-        //public RelayCommand DeletePersonRoleCommand
+        //private RelayCommand deleteCommand;
+        //public RelayCommand DeleteCommand
         //{
         //    get
         //    {
-        //        return deletePersonRoleCommand ?? (deletePersonRoleCommand = new RelayCommand(async (selectedItem) =>
+        //        return deleteCommand ?? (deleteCommand = new RelayCommand(async (selectedItem) =>
         //        {
         //            Personrole? role = selectedItem as Personrole;
         //            if (role == null) return;
@@ -88,12 +82,12 @@ namespace InventoryClient.ViewModel
         //        }));
         //    }
         //}
-        //private RelayCommand updatePersonRoleCommand;
-        //public RelayCommand UpdatePersonRoleCommand
+        //private RelayCommand updateCommand;
+        //public RelayCommand UpdateCommand
         //{
         //    get
         //    {
-        //        return updatePersonRoleCommand ?? (updatePersonRoleCommand = new RelayCommand(async (selectedItem) =>
+        //        return updateCommand ?? (updateCommand = new RelayCommand(async (selectedItem) =>
         //        {
         //            Personrole? role = selectedItem as Personrole;
         //            if (role == null) return;
@@ -209,35 +203,6 @@ namespace InventoryClient.ViewModel
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
-        }
-        private async void OnAddPersonRoleClick(object parameter)
-        {
-            //RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(new Role());
-            //if (roleAddUpdateWindow.ShowDialog() == true)
-            //{
-            //    await sendPersonRole(roleAddUpdateWindow.Role);
-            //}
-        }
-
-        private bool CanExecuteOnAddPersonRoleClick(object parametr)
-        {
-            return false;
-        }
-        private async void OnUpdatePersonRoleClick(object parameter)
-        {
-        }
-
-        private bool CanExecuteUpdatePersonRoleClick(object parametr)
-        {
-            return false;
-        }
-        private async void OnDeletePersonRoleClick(object parameter)
-        {
-        }
-
-        private bool CanExecuteDeletePersonRoleClick(object parametr)
-        {
-            return false;
         }
     }
 }

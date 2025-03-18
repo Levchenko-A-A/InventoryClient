@@ -26,7 +26,8 @@
                  FontSize="16"
                  materialDesign:HintAssist.Hint="Login"
                  materialDesign:HintAssist.Foreground="Green"
-                 materialDesign:TextFieldAssist.UnderlineBrush="Green">
+                 materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}">
         </TextBox>
         <PasswordBox Name="txtPassword"
                      Grid.Column="1"

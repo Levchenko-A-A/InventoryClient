@@ -12,27 +12,27 @@ namespace InventoryClient.Model
 {
     public class Personrole
     {
-        private int userroleid;
-        [JsonPropertyName("userroleid")]
-        public int Userroleid 
+        private int personrolid;
+        [JsonPropertyName("personroleid")]
+        public int Personroleid 
         {
-            get => userroleid;
+            get => personrolid;
             set
             {
-                userroleid = value;
-                OnProperyChanged(nameof(userroleid));
+                personrolid = value;
+                OnProperyChanged(nameof(personrolid));
             }
         }
 
-        private int userid;
-        [JsonPropertyName("userid")]
-        public int Userid 
+        private int personid;
+        [JsonPropertyName("personid")]
+        public int Personid 
         { 
-            get => userid;
+            get => personid;
             set
             {
-                userid = value;
-                OnProperyChanged(nameof(userid));
+                personid = value;
+                OnProperyChanged(nameof(personid));
             }
         }
 
