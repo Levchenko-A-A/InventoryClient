@@ -11,6 +11,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace InventoryClient.ViewModel
 {
@@ -22,6 +23,12 @@ namespace InventoryClient.ViewModel
         {
             httpClient = new HttpClient();
             Load();
+            //AddPersonRoleButVis = Visibility.Collapsed;
+            AddPersonRoleButIsE = false;
+            UpdatePersonRoleButIsE = false;
+            DelPersonRoleButIsE = false;
+
+
         }
         private void Load()
         {
@@ -48,6 +55,46 @@ namespace InventoryClient.ViewModel
             {
                 selectedPersonRole = value;
                 OnPropertyChanged(nameof(SelectedPersonRole));
+            }
+        }
+        //private Visibility addPersonRoleButVis;
+        //public Visibility AddPersonRoleButVis
+        //{
+        //    get { return addPersonRoleButVis; }
+        //    set
+        //    {
+        //        addPersonRoleButVis = value;
+        //        OnPropertyChanged(nameof(AddPersonRoleButVis));
+        //    }
+        //}
+        private bool addPersonRoleButIsE;
+        public bool AddPersonRoleButIsE
+        {
+            get { return addPersonRoleButIsE; }
+            set
+            {
+                addPersonRoleButIsE = value;
+                OnPropertyChanged(nameof(AddPersonRoleButIsE));
+            }
+        }
+        private bool updatePersonRoleButIsE;
+        public bool UpdatePersonRoleButIsE
+        {
+            get { return updatePersonRoleButIsE; }
+            set
+            {
+                updatePersonRoleButIsE = value;
+                OnPropertyChanged(nameof(UpdatePersonRoleButIsE));
+            }
+        }
+        private bool delPersonRoleButIsE;
+        public bool DelPersonRoleButIsE
+        {
+            get { return delPersonRoleButIsE; }
+            set
+            {
+                delPersonRoleButIsE = value;
+                OnPropertyChanged(nameof(DelPersonRoleButIsE));
             }
         }
 
