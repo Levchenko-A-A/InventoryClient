@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InventoryClient.Model;
+using InventoryClient.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +25,7 @@ namespace InventoryClient.View
         public PageCategory()
         {
             InitializeComponent();
-            //fdfsfdfsf
+            DataContext = new CategoryViewModel();
         }
     }
 }

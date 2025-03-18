@@ -16,16 +16,16 @@ using System.Windows.Shapes;
 namespace InventoryClient.View
 {
     /// <summary>
-    /// Логика взаимодействия для LocationWindow.xaml
+    /// Логика взаимодействия для CategoryWindow.xaml
     /// </summary>
-    public partial class LocationWindow : Window
+    public partial class CategoryWindow : Window
     {
-        public Location location { get; set; }
-        public LocationWindow(Location l)
+        public Category category { get; set; }
+        public CategoryWindow(Category cat)
         {
             InitializeComponent();
-            location = l;
-            DataContext = location;
+            category = cat;
+            DataContext = category;
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {

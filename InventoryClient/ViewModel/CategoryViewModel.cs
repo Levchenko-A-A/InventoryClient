@@ -13,11 +13,11 @@ using System.Windows;
 
 namespace InventoryClient.ViewModel
 {
-    class DeviceViewModel: BaseViewModel
+    class CategoryViewModel: BaseViewModel
     {
         private HttpClient httpClient;
 
-        public DeviceViewModel()
+        public CategoryViewModel()
         {
             httpClient = new HttpClient();
             Load();
@@ -25,29 +25,29 @@ namespace InventoryClient.ViewModel
 
         private void Load()
         {
-            Devices = null;
-            Task<ObservableCollection<Device>> task = Task.Run(() => getDevises());
-            Devices = task.Result;
+            Categories = null;
+            Task<ObservableCollection<Category>> task = Task.Run(() => getLocation());
+            Categories = task.Result;
         }
 
-        private ObservableCollection<Device>? devices;
-        public ObservableCollection<Device>? Devices
+        private ObservableCollection<Category>? categories;
+        public ObservableCollection<Category>? Categories
         {
-            get { return devices; }
+            get { return categories; }
             set
             {
-                devices = value;
-                OnPropertyChanged(nameof(devices));
+                categories = value;
+                OnPropertyChanged(nameof(categories));
             }
         }
-        private Device? selectedDevice;
-        public Device? SelectedDevice
+        private Category? selectedCategories;
+        public Category? SelectedCategories
         {
-            get => selectedDevice;
+            get => selectedCategories;
             set
             {
-                selectedDevice = value;
-                OnPropertyChanged(nameof(selectedDevice));
+                selectedCategories = value;
+                OnPropertyChanged(nameof(SelectedCategories));
             }
         }
 
@@ -58,10 +58,10 @@ namespace InventoryClient.ViewModel
             {
                 return addCommand ?? (addCommand = new RelayCommand(async obj =>
                 {
-                    DeviceWindow deviceWindow = new DeviceWindow(new Device());
-                    if (deviceWindow.ShowDialog() == true)
+                    CategoryWindow categoryWindow = new CategoryWindow(new Category());
+                    if (categoryWindow.ShowDialog() == true)
                     {
-                        await sendDevice(deviceWindow.device);
+                        await sendLocation(categoryWindow.category);
                     }
                 }));
             }
@@ -73,12 +73,12 @@ namespace InventoryClient.ViewModel
             {
                 return updateCommand ?? (updateCommand = new RelayCommand(async (selectedItem) =>
                 {
-                    Device? device = selectedItem as Device;
-                    if (device == null) return;
-                    DeviceWindow deviceWindow = new DeviceWindow(device);
-                    if (deviceWindow.ShowDialog() == true)
+                    Category? category = selectedItem as Category;
+                    if (category == null) return;
+                    CategoryWindow categoryWindow = new CategoryWindow(category);
+                    if (categoryWindow.ShowDialog() == true)
                     {
-                        await updateDevice(deviceWindow.device);
+                        await updateCategory(categoryWindow.category);
                     }
                 }));
             }
@@ -90,60 +90,60 @@ namespace InventoryClient.ViewModel
             {
                 return deleteCommand ?? (deleteCommand = new RelayCommand(async (selectedItem) =>
                 {
-                    Device? device = selectedItem as Device;
-                    if (device == null) return;
+                    Category? category = selectedItem as Category;
+                    if (category == null) return;
                     if (MessageBox.Show("Вы действительно хотите удалить элемент?", "Внимание", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
                     {
-                        await delDevice(device.Deviceid);
+                        await delCategory(category.Categoryid);
                     }
                 }));
             }
         }
-        private async Task<ObservableCollection<Device>> getDevises()
+        private async Task<ObservableCollection<Category>> getLocation()
         {
             try
             {
-                StringContent content = new StringContent("getLocation");
+                StringContent content = new StringContent("getCategory");
                 using var request = new HttpRequestMessage(HttpMethod.Get, "http://127.0.0.1:8888/connection/");
-                request.Headers.Add("table", "device");
+                request.Headers.Add("table", "category");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
-                List<Device> devices = JsonSerializer.Deserialize<List<Device>>(responseText)!;
-                return new ObservableCollection<Device>(devices);
+                List<Category> clients = JsonSerializer.Deserialize<List<Category>>(responseText)!;
+                return new ObservableCollection<Category>(clients);
             }
             catch (HttpRequestException ex)
             {
                 MessageBox.Show($"Ошибка HTTP-запроса: {ex.Message}");
-                return new ObservableCollection<Device>();
+                return new ObservableCollection<Category>();
             }
             catch (JsonException ex)
             {
                 MessageBox.Show($"Ошибка десериализации JSON: {ex.Message}");
-                return new ObservableCollection<Device>();
+                return new ObservableCollection<Category>();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
-                return new ObservableCollection<Device>();
+                return new ObservableCollection<Category>();
             }
         }
 
-        private async Task sendDevice(Device device)
+        private async Task sendLocation(Category category)
         {
             try
             {
-                JsonContent content = JsonContent.Create(device);
+                JsonContent content = JsonContent.Create(category);
                 var request = new HttpRequestMessage(HttpMethod.Post, "http://127.0.0.1:8888/connection/");
                 request.Content = content;
-                request.Headers.Add("table", "device");
+                request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 if (responseText == "Error")
-                    MessageBox.Show("Устройство с таким именем существует");
+                    MessageBox.Show("Категория с таким именем существует");
                 else if (responseText == "OK")
                 {
-                    MessageBox.Show("Устройство добавлено");
+                    MessageBox.Show("Категория добавлена");
                     Load();
                 }
             }
@@ -156,21 +156,21 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
-        public async Task delDevice(int deviceId)
+        public async Task delCategory(int CategoryId)
         {
             try
             {
-                JsonContent content = JsonContent.Create(deviceId);
+                JsonContent content = JsonContent.Create(CategoryId);
                 var request = new HttpRequestMessage(HttpMethod.Delete, "http://127.0.0.1:8888/connection/");
                 request.Content = content;
-                request.Headers.Add("table", "device");
+                request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 if (responseText == "Error")
-                    MessageBox.Show("Устройство с таким именем не существует");
+                    MessageBox.Show("Категория с таким именем не существует");
                 else if (responseText == "OK")
                 {
-                    MessageBox.Show("Устройство удалено");
+                    MessageBox.Show("Категория удалена");
                     Load();
                 }
             }
@@ -183,14 +183,14 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
-        public async Task updateDevice(Device device)
+        public async Task updateCategory(Category category)
         {
             try
             {
-                JsonContent content = JsonContent.Create(device);
+                JsonContent content = JsonContent.Create(category);
                 var request = new HttpRequestMessage(HttpMethod.Put, "http://127.0.0.1:8888/connection/");
                 request.Content = content;
-                request.Headers.Add("table", "device");
+                request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(responseText);

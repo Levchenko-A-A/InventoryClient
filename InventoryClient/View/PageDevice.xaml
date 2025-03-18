@@ -24,16 +24,16 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Button Style="{StaticResource MaterialDesignFloatingActionButton}" ToolTip="Добавить" 
-            Width="50" Height="50" Grid.Row="0" Command="{Binding AddDevCommand}">
+            Width="50" Height="50" Grid.Row="0" Command="{Binding AddCommand}">
                 <materialDesign:PackIcon Kind="Add" Height="30" Width="30" />
             </Button>
             <Button Style="{StaticResource MaterialDesignFloatingActionButton}" ToolTip="Удалить" 
-            Width="50" Height="50" Grid.Row="1" Command="{Binding UpdateDevCommand}" 
+            Width="50" Height="50" Grid.Row="1" Command="{Binding UpdateCommand}" 
             CommandParameter="{Binding ElementName=DeviceList,Path=SelectedItem}">
                 <materialDesign:PackIcon Kind="Update" Height="30" Width="30" />
             </Button>
             <Button Style="{StaticResource MaterialDesignFloatingActionButton}" ToolTip="Удалить" 
-            Width="50" Height="50" Grid.Row="2" Command="{Binding DeleteDevCommand}" 
+            Width="50" Height="50" Grid.Row="2" Command="{Binding DeleteCommand}" 
             CommandParameter="{Binding ElementName=DeviceList,Path=SelectedItem}">
                 <materialDesign:PackIcon Kind="Delete" Height="30" Width="30" />
             </Button>
