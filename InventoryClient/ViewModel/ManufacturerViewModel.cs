@@ -104,7 +104,7 @@ namespace InventoryClient.ViewModel
         {
             try
             {
-                StringContent content = new StringContent("getManufacturer");
+                StringContent content = new StringContent("getManufacturerAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, "http://127.0.0.1:8888/connection/");
                 request.Headers.Add("table", "manufacturer");
                 request.Content = content;

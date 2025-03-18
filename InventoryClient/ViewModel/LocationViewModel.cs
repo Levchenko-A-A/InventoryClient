@@ -103,7 +103,7 @@ namespace InventoryClient.ViewModel
         {
             try
             {
-                StringContent content = new StringContent("getLocation");
+                StringContent content = new StringContent("getLocationAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, "http://127.0.0.1:8888/connection/");
                 request.Headers.Add("table", "location");
                 request.Content = content;

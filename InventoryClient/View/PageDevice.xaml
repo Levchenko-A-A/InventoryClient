@@ -11,6 +11,8 @@
       Title="PageDevice">
     <Page.Resources>
         <converter:CategoryidToNameConverter x:Key="CategoryIdToName"/>
+        <converter:ManufactureridToNameConverter x:Key="ManufacturerIdToName"/>
+        <converter:LocationidToNameConverter x:Key="LocationIdToName"/>
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -52,8 +54,8 @@
                             <TextBlock Text="{Binding Deviceid}" FontSize="25" />
                             <TextBlock Text="{Binding Name}" FontSize="25" />
                             <TextBlock Text="{Binding Path=Categoryid, Converter={StaticResource CategoryIdToName}}" FontSize="25" />
-                            <TextBlock Text="{Binding Manufacturerid}" FontSize="25" />
-                            <TextBlock Text="{Binding Locationid}" FontSize="25" />
+                            <TextBlock Text="{Binding Path=Manufacturerid, Converter={StaticResource ManufacturerIdToName}}" FontSize="25" />
+                            <TextBlock Text="{Binding Path=Locationid, Converter={StaticResource LocationIdToName}}" FontSize="25" />
                             <TextBlock Text="{Binding Description}" FontSize="20" />
                             <TextBlock Text="{Binding Createdat}" FontSize="20" />
                         </StackPanel>
