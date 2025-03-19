@@ -12,27 +12,40 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0"
-         materialDesign:HintAssist.Hint="Login" Margin="50 20">
+         materialDesign:HintAssist.Hint="Login" Margin="50 10">
             <TextBox.Text>
                 <Binding Path="Personname" UpdateSourceTrigger="PropertyChanged">
                 </Binding>
             </TextBox.Text>
         </TextBox>
         <TextBox Grid.Row="1"
-         materialDesign:HintAssist.Hint="Password" Margin="50 20">
+         materialDesign:HintAssist.Hint="Password" Margin="50 10">
             <TextBox.Text>
                 <Binding Path="Passwordhash" UpdateSourceTrigger="PropertyChanged">
                 </Binding>
             </TextBox.Text>
         </TextBox>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <CheckBox x:Name="Admin" Grid.Row="0" IsChecked="False" Content="Администратор"/>
+            <CheckBox x:Name="Manager" Grid.Row="1" IsChecked="False"  Content="Менеджер"/>
+            <CheckBox x:Name="User" Grid.Row="2" IsChecked="False"  Content="Пользователь"/>
+            <CheckBox x:Name="Guest" Grid.Row="3" IsChecked="False"  Content="Гостевой доступ"/>
+        </Grid> 
         <Grid Grid.Row="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button Content="OK" Grid.Column="0" Margin="20 10" Click="Button_Click"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="OK" Grid.Column="0" Margin="20 10" Click="Button_Click"/>
             <Button Content="Cancel" Grid.Column="1" Margin="20 10" Click="Button_Click_1"/>
         </Grid>
     </Grid>
