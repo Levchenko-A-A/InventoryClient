@@ -15,6 +15,7 @@ namespace InventoryClient.ViewModel
 {
     class CategoryViewModel: BaseViewModel
     {
+        public string path = "http://193.104.57.148:8080/connection/";
         private HttpClient httpClient;
 
         public CategoryViewModel()
@@ -103,7 +104,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 StringContent content = new StringContent("getCategoryAll");
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, path);
                 request.Headers.Add("table", "category");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -133,7 +134,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(category);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, path);
                 request.Content = content;
                 request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
@@ -160,7 +161,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(CategoryId);
-                var request = new HttpRequestMessage(HttpMethod.Delete, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Delete, path);
                 request.Content = content;
                 request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
@@ -188,7 +189,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(category);
-                var request = new HttpRequestMessage(HttpMethod.Put, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Put, path);
                 request.Content = content;
                 request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);

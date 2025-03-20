@@ -15,6 +15,7 @@ namespace InventoryClient.ViewModel
 {
     class PersonViewModel: BaseViewModel
     {
+        public string path = "http://193.104.57.148:8080/connection/";
         private HttpClient httpClient;
 
         public PersonViewModel()
@@ -118,7 +119,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 StringContent content = new StringContent("getPersonAll");
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, path);
                 request.Headers.Add("table", "person");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -147,7 +148,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(person);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, path);
                 request.Content = content;
                 request.Headers.Add("table", "person");
                 using var response = await httpClient.SendAsync(request);
@@ -174,7 +175,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(clientId);
-                var request = new HttpRequestMessage(HttpMethod.Delete, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Delete, path);
                 request.Content = content;
                 request.Headers.Add("table", "person");
                 using var response = await httpClient.SendAsync(request);

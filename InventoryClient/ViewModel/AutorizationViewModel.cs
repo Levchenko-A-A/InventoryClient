@@ -13,11 +13,13 @@ using InventoryClient.Model;
 using InventoryClient.View;
 using System.Windows.Input;
 using System.Security.Cryptography.X509Certificates;
+using System.IO;
 
 namespace InventoryClient.ViewModel
 {
     class AutorizationViewModel: BaseViewModel
     {
+        public string path = "http://193.104.57.148:8080/connection/";
         private static HttpClient httpClient = new HttpClient();
         JsonUser RegisterUser= new JsonUser();
         public ICommand EnterCommand { get; }

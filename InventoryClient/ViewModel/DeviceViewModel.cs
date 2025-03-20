@@ -15,6 +15,7 @@ namespace InventoryClient.ViewModel
 {
     class DeviceViewModel: BaseViewModel
     {
+        public string path = "http://193.104.57.148:8080/connection/";
         private HttpClient httpClient;
 
         public DeviceViewModel()
@@ -104,7 +105,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 StringContent content = new StringContent("getLocation");
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, path);
                 request.Headers.Add("table", "device");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -134,7 +135,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(device);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, path);
                 request.Content = content;
                 request.Headers.Add("table", "device");
                 using var response = await httpClient.SendAsync(request);
@@ -161,7 +162,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(deviceId);
-                var request = new HttpRequestMessage(HttpMethod.Delete, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Delete, path);
                 request.Content = content;
                 request.Headers.Add("table", "device");
                 using var response = await httpClient.SendAsync(request);
@@ -183,12 +184,12 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
-        public async Task updateDevice(Device device)
+        private async Task updateDevice(Device device)
         {
             try
             {
                 JsonContent content = JsonContent.Create(device);
-                var request = new HttpRequestMessage(HttpMethod.Put, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Put, path);
                 request.Content = content;
                 request.Headers.Add("table", "device");
                 using var response = await httpClient.SendAsync(request);
