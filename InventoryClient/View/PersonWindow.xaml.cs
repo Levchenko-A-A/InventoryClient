@@ -37,5 +37,10 @@ namespace InventoryClient.View
         {
             DialogResult = false;
         }
+
+        private void Admin_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

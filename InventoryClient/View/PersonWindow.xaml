@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:InventoryClient.View"
         mc:Ignorable="d"
-        Title="Клиент" Height="250" Width="300">
+        Title="Клиент" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -30,12 +30,12 @@
         </TextBox>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <CheckBox x:Name="Admin" Grid.Row="0" IsChecked="False" Content="Администратор"/>
+            <CheckBox x:Name="Admin" Grid.Row="0" IsChecked="False" Content="Администратор" Checked="Admin_Checked"/>
             <CheckBox x:Name="Manager" Grid.Row="1" IsChecked="False"  Content="Менеджер"/>
             <CheckBox x:Name="User" Grid.Row="2" IsChecked="False"  Content="Пользователь"/>
             <CheckBox x:Name="Guest" Grid.Row="3" IsChecked="False"  Content="Гостевой доступ"/>
