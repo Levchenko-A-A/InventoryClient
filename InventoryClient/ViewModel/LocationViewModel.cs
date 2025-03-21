@@ -15,7 +15,6 @@ namespace InventoryClient.ViewModel
 {
     class LocationViewModel: BaseViewModel
     {
-        public string path = "http://193.104.57.148:8080/connection/";
         private HttpClient httpClient;
 
         public LocationViewModel()
@@ -105,7 +104,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 StringContent content = new StringContent("getLocationAll");
-                using var request = new HttpRequestMessage(HttpMethod.Get, path);
+                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
                 request.Headers.Add("table", "location");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -135,7 +134,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(location);
-                var request = new HttpRequestMessage(HttpMethod.Post, path);
+                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
                 request.Content = content;
                 request.Headers.Add("table", "location");
                 using var response = await httpClient.SendAsync(request);
@@ -162,7 +161,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(locationId);
-                var request = new HttpRequestMessage(HttpMethod.Delete, path);
+                var request = new HttpRequestMessage(HttpMethod.Delete, "http://193.104.57.148:8080/connection/");
                 request.Content = content;
                 request.Headers.Add("table", "location");
                 using var response = await httpClient.SendAsync(request);
@@ -189,7 +188,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(location);
-                var request = new HttpRequestMessage(HttpMethod.Put, path);
+                var request = new HttpRequestMessage(HttpMethod.Put, "http://193.104.57.148:8080/connection/");
                 request.Content = content;
                 request.Headers.Add("table", "location");
                 using var response = await httpClient.SendAsync(request);
