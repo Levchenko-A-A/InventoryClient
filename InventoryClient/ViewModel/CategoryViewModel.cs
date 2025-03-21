@@ -50,7 +50,6 @@ namespace InventoryClient.ViewModel
                 OnPropertyChanged(nameof(SelectedCategories));
             }
         }
-
         private RelayCommand addCommand;
         public RelayCommand AddCommand
         {
