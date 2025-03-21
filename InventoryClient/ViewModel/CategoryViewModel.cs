@@ -183,6 +183,7 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
+
         public async Task updateCategory(Category category)
         {
             try
