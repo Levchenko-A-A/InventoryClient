@@ -105,7 +105,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 StringContent content = new StringContent("getManufacturerAll");
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://127.0.0.1:8888/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
                 request.Headers.Add("table", "manufacturer");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -135,7 +135,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(manufacturer);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://127.0.0.1:8888/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
                 request.Content = content;
                 request.Headers.Add("table", "manufacturer");
                 using var response = await httpClient.SendAsync(request);
@@ -162,7 +162,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(manufId);
-                var request = new HttpRequestMessage(HttpMethod.Delete, "http://127.0.0.1:8888/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Delete, "http://193.104.57.148:8080/connection/");
                 request.Content = content;
                 request.Headers.Add("table", "manufacturer");
                 using var response = await httpClient.SendAsync(request);
@@ -189,7 +189,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(manuf);
-                var request = new HttpRequestMessage(HttpMethod.Put, "http://127.0.0.1:8888/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Put, "http://193.104.57.148:8080/connection/");
                 request.Content = content;
                 request.Headers.Add("table", "manufacturer");
                 using var response = await httpClient.SendAsync(request);

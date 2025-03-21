@@ -71,7 +71,7 @@ namespace InventoryClient.ViewModel
                     Password = password
                 };
                 JsonContent content = JsonContent.Create(requestData);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://127.0.0.1:8888/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
                 request.Content = content;
                 request.Headers.Add("table", "verifyPasswordPerson");
                 using var response = await httpClient.SendAsync(request);
