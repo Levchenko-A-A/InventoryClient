@@ -81,16 +81,8 @@ namespace InventoryClient.ViewModel
             {
                 return exitCommand ?? (exitCommand = new RelayCommand((o) =>
                 {
-                    //this.Close();
-                    //MainWindow mainWindow = new MainWindow();
-                    //mainWindow.Show();
-                    //foreach (Window window in Application.Current.Windows)
-                    //{
-                    //    if (window is MainWindow main)
-                    //    {
-                    //        main.Visibility = Visibility.Visible;
-                    //    }
-                    //}
+                    BasicWindow.Instance!.Close();
+                    MainWindow.Instance!.Close();
                 }));
             }
         }

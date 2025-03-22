@@ -14,6 +14,7 @@ using InventoryClient.View;
 using System.Windows.Input;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
+using System.Reflection.Metadata;
 
 namespace InventoryClient.ViewModel
 {
@@ -22,12 +23,6 @@ namespace InventoryClient.ViewModel
         public string path = "http://193.104.57.148:8080/connection/";
         private static HttpClient httpClient = new HttpClient();
         JsonUser RegisterUser= new JsonUser();
-        public ICommand EnterCommand { get; }
-
-        public AutorizationViewModel()
-        {
-            EnterCommand = new RelayCommand(ExecuteEnter, CanExecuteEnter);
-        }
 
         private Visibility visibility;
         public Visibility Visibility
@@ -63,6 +58,30 @@ namespace InventoryClient.ViewModel
             }
         }
 
+        private RelayCommand? enterCommand;
+        public RelayCommand EnterCommand
+        {
+            get
+            {
+                return enterCommand ??
+                  (enterCommand = new RelayCommand(async obj =>
+                  {
+                      PasswordBox? password = obj as PasswordBox;
+                      string userName = Login;
+                      string passWord = password!.Password;
+                      RegisterUser.UserName = Login;
+                      string result = await VerifyPassword(userName, passWord);
+                      if (result == "ok")
+                      {
+                          Visibility = Visibility.Hidden;
+                          BasicWindow basicWindow = new BasicWindow();
+                          basicWindow.Show();
+                      }
+                      else MessageBox.Show("Пользователя с таким именем или паролем не существует!");
+                  }));
+            }
+        }
+
         public static async Task<string> VerifyPassword(string username, string password)
         {
             try
@@ -91,26 +110,6 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
                 return "Error";
             }
-        }
-        private async void ExecuteEnter(object parameter)
-        {
-            PasswordBox? password = parameter as PasswordBox;
-            string userName = Login;
-            string passWord = password!.Password;
-            RegisterUser.UserName = Login;
-            string result = await VerifyPassword(userName, passWord);
-            if (result == "ok")
-            {
-                Visibility = Visibility.Collapsed;
-                BasicWindow basicWindow = new BasicWindow();
-                basicWindow.Show();
-            }
-            else MessageBox.Show("Пользователя с таким именем или паролем не существует!");
-        }
-
-        private bool CanExecuteEnter(object parameter)
-        {
-            return true;
         }
     }
 }
