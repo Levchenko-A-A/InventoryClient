@@ -31,7 +31,7 @@ namespace InventoryClient.Infrastructure.Converters
             try
             {
                 JsonContent content = JsonContent.Create(roleId);
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://127.0.0.1:8888/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8888/connection/");
                 request.Headers.Add("table", "role");
                 request.Content = content;
                 using var response = await httpClient.SendAsync(request);
