@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:InventoryClient"
         mc:Ignorable="d"
         Title="Авторизация" Height="300" Width="400" Visibility="{Binding Visibility, Mode=TwoWay}">
-    <Grid KeyDown="Grid_KeyDown">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="4*"/>
