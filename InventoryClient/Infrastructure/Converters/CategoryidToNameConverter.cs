@@ -31,7 +31,7 @@ namespace InventoryClient.Infrastructure.Converters
             try
             {
                 JsonContent content = JsonContent.Create(categoryId);
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://http://193.104.57.148:8080/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
                 request.Headers.Add("table", "category");
                 request.Content = content;
                 using var response = await httpClient.SendAsync(request);
