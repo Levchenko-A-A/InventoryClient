@@ -67,6 +67,10 @@ public partial class Person
             OnProperyChanged(nameof(createdat));
         }
     }
+    public bool IsAdmin { get; set; } // новое для  Checkbox
+    public bool IsManager { get; set; } // новое для  Checkbox
+    public bool IsUser { get; set; }    //новое для  Checkbox
+    public bool IsGuest { get; set; } //новое для  Checkbox
 
     public event PropertyChangedEventHandler? PropertyChanged;
     public void OnProperyChanged([CallerMemberName] string prop = "")

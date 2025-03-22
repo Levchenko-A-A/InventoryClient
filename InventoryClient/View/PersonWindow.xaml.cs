@@ -38,9 +38,9 @@ namespace InventoryClient.View
             DialogResult = false;
         }
 
-        private void Admin_Checked(object sender, RoutedEventArgs e)
+        private void Admin_Checked(object sender, RoutedEventArgs e)//новое
         {
-
+            Person.IsAdmin = (sender as CheckBox)?.IsChecked ?? false;
         }
     }
 }

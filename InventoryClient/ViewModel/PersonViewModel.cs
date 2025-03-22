@@ -62,7 +62,14 @@ namespace InventoryClient.ViewModel
                     PersonWindow personWindow = new PersonWindow(new Person());
                     if (personWindow.ShowDialog() == true)
                     {
-                        await sendPerson(personWindow.Person);
+                        if (personWindow.Person.IsAdmin)//новое, было без ифа await sendPerson(personWindow.Person);
+                        {
+                            await sendPerson(personWindow.Person);
+                        }
+                        else//новое
+                        {
+                           MessageBox.Show("Роль не соответствует требованиям.");
+                        }
                     }
                 }));
             }
