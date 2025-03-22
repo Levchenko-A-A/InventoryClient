@@ -24,22 +24,20 @@
             </TextBox.Text>
         </TextBox>
         <TextBox Grid.Row="1" Margin="50 20">
-            <!--<TextBox.Text>
-                <Binding Path="Categoryid" UpdateSourceTrigger="PropertyChanged">
-                   
-                </Binding>
-            </TextBox.Text>-->  
         </TextBox>
         <ComboBox materialDesign:HintAssist.Hint="Категория" x:Name="ComboBoxCategory"
                   Grid.Row="1" Margin="50 20" DisplayMemberPath="Name"
                   SelectedValuePath="Categoryid" SelectedValue="{Binding Categoryid}"/>
-        <TextBox Grid.Row="2"
-         materialDesign:HintAssist.Hint="Производитель" Margin="50 20">
-            <TextBox.Text>
+        <TextBox Grid.Row="2" Margin="50 20">
+         <!----> 
+            <!--<TextBox.Text>
                 <Binding Path="Manufacturerid" UpdateSourceTrigger="PropertyChanged">
                 </Binding>
-            </TextBox.Text>
+            </TextBox.Text>-->
         </TextBox>
+        <ComboBox materialDesign:HintAssist.Hint="Производитель" x:Name="ComboBoxMabufacturer"
+                  Grid.Row="2" Margin="50 20" DisplayMemberPath="Name"
+                  SelectedValuePath="Manufactureid" SelectedValue="{Binding Manufactureid}"/>
         <TextBox Grid.Row="3"
          materialDesign:HintAssist.Hint="Локация" Margin="50 20">
             <TextBox.Text>
