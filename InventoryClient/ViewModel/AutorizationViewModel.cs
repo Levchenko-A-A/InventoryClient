@@ -18,12 +18,11 @@ using System.Reflection.Metadata;
 
 namespace InventoryClient.ViewModel
 {
-    class AutorizationViewModel: BaseViewModel
+    internal class AutorizationViewModel: BaseViewModel
     {
         public string path = "http://193.104.57.148:8080/connection/";
         private static HttpClient httpClient = new HttpClient();
-        JsonUser RegisterUser= new JsonUser();
-
+        
         private Visibility visibility;
         public Visibility Visibility
         {
