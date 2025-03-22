@@ -35,7 +35,7 @@
                 </Binding>
             </TextBox.Text>-->
         </TextBox>
-        <ComboBox materialDesign:HintAssist.Hint="Производитель" x:Name="ComboBoxMabufacturer"
+        <ComboBox materialDesign:HintAssist.Hint="Производитель" x:Name="ComboBoxManufacturer"
                   Grid.Row="2" Margin="50 20" DisplayMemberPath="Name"
                   SelectedValuePath="Manufactureid" SelectedValue="{Binding Manufactureid}"/>
         <TextBox Grid.Row="3"

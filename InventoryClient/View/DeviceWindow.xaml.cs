@@ -26,6 +26,10 @@ namespace InventoryClient.View
         public Device device { get; set; }
         private HttpClient httpClient;
         public List<Category> Categories { get; set; } =new();
+
+        public List<Manufacturer>? Manufacturers { get; set; }= new();//новое
+        
+
         public DeviceWindow(Device dec)
         {
             InitializeComponent();
@@ -35,6 +39,10 @@ namespace InventoryClient.View
             Task<List<Category>> task = Task.Run(() => getLocation());
             Categories = task.Result;
             ComboBoxCategory.ItemsSource = Categories;
+
+            Task<List<Manufacturer>> taskMan = Task.Run(() => getManufacturer());// новое
+            Manufacturers = taskMan.Result;
+            ComboBoxManufacturer.ItemsSource = Manufacturers;
         }
         private async Task<List<Category>> getLocation()
         {
@@ -63,6 +71,36 @@ namespace InventoryClient.View
             {
                 MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
                 return new List<Category>();
+            }
+        }
+
+        private async Task<List<Manufacturer>> getManufacturer()//новое
+        {
+            try
+            {
+                StringContent content = new StringContent("getManufacturer");
+                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                request.Headers.Add("table", "manufacturer");
+                request.Content = content;
+                using HttpResponseMessage response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                List<Manufacturer> clients = JsonSerializer.Deserialize<List<Manufacturer>>(responseText)!;
+                return new List<Manufacturer>(clients);
+            }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show($"Ошибка HTTP-запроса: {ex.Message}");
+                return new List<Manufacturer>();
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show($"Ошибка десериализации JSON: {ex.Message}");
+                return new List<Manufacturer>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
+                return new List<Manufacturer>();
             }
         }
 
