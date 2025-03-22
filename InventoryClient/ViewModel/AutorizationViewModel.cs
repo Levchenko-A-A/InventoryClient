@@ -101,7 +101,7 @@ namespace InventoryClient.ViewModel
             string result = await VerifyPassword(userName, passWord);
             if (result == "ok")
             {
-                Visibility = Visibility.Hidden;
+                Visibility = Visibility.Collapsed;
                 BasicWindow basicWindow = new BasicWindow();
                 basicWindow.Show();
             }

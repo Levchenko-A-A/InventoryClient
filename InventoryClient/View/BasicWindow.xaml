@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InventoryClient.View"
         mc:Ignorable="d"
-        Title="BasicWindow" Height="650" Width="900">
+        Title="Инвентаризация оборудования" Height="650" Width="900">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -21,12 +21,30 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button Grid.Column="0" Grid.Row="0" Content="Пользователи" Margin="20 30" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click"/>
-                <Button Grid.Column="0" Grid.Row="1" Content="Категории" Margin="20 30" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click_1"/>
-                <Button Grid.Column="0" Grid.Row="2" Content="Устройства" Margin="20 30" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click_2"/>
-                <Button Grid.Column="0" Grid.Row="3" Content="Производитель" Margin="20 30" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click_3"/>
-                <Button Grid.Column="0" Grid.Row="4" Content="Расположение" Margin="20 30" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click_4"/>
-                <Button Grid.Column="0" Grid.Row="5" Content="Выход" Margin="20 30" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="Button_Click_5"/>
+                <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        ToolTip="Список пользователей"
+                        Grid.Row="0" Content="Пользователи" Margin="20 30" 
+                        Command="{Binding PersonCommand}"/>
+                <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        ToolTip="Список категорий"
+                        Grid.Row="1" Content="Категории" Margin="20 30" 
+                        Command="{Binding CategoryCommand}"/>
+                <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        ToolTip="Список устройств"
+                        Grid.Row="2" Content="Устройства" Margin="20 30" 
+                        Command="{Binding DeviceCommand}"/>
+                <Button Style="{StaticResource MaterialDesignRaisedLightButton}" 
+                        ToolTip="Список производителей"
+                        Grid.Column="0" Grid.Row="3" Content="Производитель" Margin="20 30" 
+                        Command="{Binding ManufacturerCommand}"/>
+                <Button Style="{StaticResource MaterialDesignRaisedLightButton}" 
+                        ToolTip="Список Расположений"
+                        Grid.Column="0" Grid.Row="4" Content="Расположение" Margin="20 30" 
+                        Command="{Binding LocationCommand}"/>
+                <Button Style="{StaticResource MaterialDesignRaisedLightButton}" 
+                        ToolTip="Выход"
+                        Grid.Column="0" Grid.Row="5" Content="Выход" Margin="20 30" 
+                        Command="{Binding ExitCommand}"/>
             </Grid>
             <Frame Grid.Column="1" x:Name="MainFrame"/>
         </Grid>
