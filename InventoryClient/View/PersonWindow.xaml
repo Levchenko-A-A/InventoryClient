@@ -35,10 +35,10 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <CheckBox x:Name="Admin" Grid.Row="0" IsChecked="False" Content="Администратор" Checked="Admin_Checked"/>
-            <CheckBox x:Name="Manager" Grid.Row="1" IsChecked="False"  Content="Менеджер"/>
-            <CheckBox x:Name="User" Grid.Row="2" IsChecked="False"  Content="Пользователь"/>
-            <CheckBox x:Name="Guest" Grid.Row="3" IsChecked="False"  Content="Гостевой доступ"/>
+            <CheckBox x:Name="CheckBoxAdmin" Grid.Row="0" IsChecked="False" Content="Администратор" Checked="Admin_Checked"/>
+            <CheckBox x:Name = "CheckBoxManager" Grid.Row="1" IsChecked="False"  Content="Менеджер"/>
+            <CheckBox x:Name="CheckBoxUser" Grid.Row="2" IsChecked="False"  Content="Пользователь"/>
+            <CheckBox x:Name="CheckBoxGuest" Grid.Row="3" IsChecked="False"  Content="Гостевой доступ"/>
         </Grid> 
         <Grid Grid.Row="6">
                     <Grid.ColumnDefinitions>

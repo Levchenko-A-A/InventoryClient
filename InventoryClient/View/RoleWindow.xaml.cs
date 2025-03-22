@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using InventoryClient.ViewModel;
 
 namespace InventoryClient.View
 {
@@ -19,26 +20,12 @@ namespace InventoryClient.View
     /// </summary>
     public partial class RoleWindow : Window
     {
+        public static RoleWindow? Instance { get; private set; }
         public RoleWindow()
         {
             InitializeComponent();
-            RoleFrame.Navigate(new PageRole());
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            RoleFrame.Navigate(new PagePersonrole());
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            RoleFrame.Navigate(new PageRole());
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-        
-            this.Close();
+            Instance = this;
+            DataContext = new RoleWindowViewModel();
         }
     }
 }
