@@ -26,7 +26,7 @@ namespace InventoryClient.ViewModel
         private void Load()
         {
             Categories = null;
-            Task<ObservableCollection<Category>> task = Task.Run(() => getLocation());
+            Task<ObservableCollection<Category>> task = Task.Run(() => getCategory());
             Categories = task.Result;
         }
 
@@ -98,7 +98,7 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
-        private async Task<ObservableCollection<Category>> getLocation()
+        private async Task<ObservableCollection<Category>> getCategory()
         {
             try
             {

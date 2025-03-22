@@ -26,25 +26,25 @@ namespace InventoryClient.View
         public Device device { get; set; }
         private HttpClient httpClient;
         public List<Category> Categories { get; set; } =new();
-
-        public List<Manufacturer>? Manufacturers { get; set; }= new();//новое
-        
-
+        public List<Manufacturer> Manufacturers { get; set; }= new();
+        public List<Location> Locations { get; set; } = new();
         public DeviceWindow(Device dec)
         {
             InitializeComponent();
             httpClient = new HttpClient();
             device = dec;
             DataContext = device;
-            Task<List<Category>> task = Task.Run(() => getLocation());
+            Task<List<Category>> task = Task.Run(() => getCategory());
             Categories = task.Result;
             ComboBoxCategory.ItemsSource = Categories;
-
             Task<List<Manufacturer>> taskMan = Task.Run(() => getManufacturer());
             Manufacturers = taskMan.Result;
             ComboBoxManufacturer.ItemsSource = Manufacturers;
+            Task<List<Location>> taskLoc = Task.Run(() => getLocation());
+            Locations = taskLoc.Result;
+            ComboBoxLocation.ItemsSource = Locations;
         }
-        private async Task<List<Category>> getLocation()
+        private async Task<List<Category>> getCategory()
         {
             try
             {
@@ -73,7 +73,6 @@ namespace InventoryClient.View
                 return new List<Category>();
             }
         }
-
         private async Task<List<Manufacturer>> getManufacturer()
         {
             try
@@ -101,6 +100,35 @@ namespace InventoryClient.View
             {
                 MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
                 return new List<Manufacturer>();
+            }
+        }
+        private async Task<List<Location>> getLocation()
+        {
+            try
+            {
+                StringContent content = new StringContent("getLocationAll");
+                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                request.Headers.Add("table", "location");
+                request.Content = content;
+                using HttpResponseMessage response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                List<Location> clients = JsonSerializer.Deserialize<List<Location>>(responseText)!;
+                return clients;
+            }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show($"Ошибка HTTP-запроса: {ex.Message}");
+                return new List<Location>();
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show($"Ошибка десериализации JSON: {ex.Message}");
+                return new List<Location>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
+                return new List<Location>();
             }
         }
 
