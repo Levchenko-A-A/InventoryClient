@@ -78,7 +78,7 @@ namespace InventoryClient.View
         {
             try
             {
-                StringContent content = new StringContent("getManufacturer");
+                StringContent content = new StringContent("getManufacturerAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
                 request.Headers.Add("table", "manufacturer");
                 request.Content = content;
