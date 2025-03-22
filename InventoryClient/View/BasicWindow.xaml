@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InventoryClient.View"
+        xmlns:loc="clr-namespace:InventoryClient.ViewModel"
         mc:Ignorable="d"
-        Title="Инвентаризация оборудования" Height="650" Width="900">
+        Title="Инвентаризация оборудования" Height="650" Width="900"
+        Closed="Window_Closed">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>

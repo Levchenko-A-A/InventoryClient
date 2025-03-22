@@ -28,5 +28,10 @@ namespace InventoryClient.View
             Instance = this;
             DataContext = new BasicWindowViewModel();         
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            MainWindow.Instance!.Close();
+        }
     }
 }
