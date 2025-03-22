@@ -158,8 +158,8 @@ namespace InventoryClient.ViewModel
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
-                List<Personrole> roles = JsonSerializer.Deserialize<List<Personrole>>(responseText)!;
-                return new ObservableCollection<Personrole>(roles);
+                List<Personrole> personroles = JsonSerializer.Deserialize<List<Personrole>>(responseText)!;
+                return new ObservableCollection<Personrole>(personroles);
             }
             catch (HttpRequestException ex)
             {

@@ -45,8 +45,8 @@ namespace InventoryClient.ViewModel
         {
             get
             {
-                return personRolCommand ??
-                  (personRolCommand = new RelayCommand((o) =>
+                return exitCommand ??
+                  (exitCommand = new RelayCommand((o) =>
                   {
                       RoleWindow.Instance!.Close();
                   }));
