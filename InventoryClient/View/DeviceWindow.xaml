@@ -29,22 +29,15 @@
                   Grid.Row="1" Margin="50 20" DisplayMemberPath="Name"
                   SelectedValuePath="Categoryid" SelectedValue="{Binding Categoryid}"/>
         <TextBox Grid.Row="2" Margin="50 20">
-         <!----> 
-            <!--<TextBox.Text>
-                <Binding Path="Manufacturerid" UpdateSourceTrigger="PropertyChanged">
-                </Binding>
-            </TextBox.Text>-->
         </TextBox>
         <ComboBox materialDesign:HintAssist.Hint="Производитель" x:Name="ComboBoxManufacturer"
                   Grid.Row="2" Margin="50 20" DisplayMemberPath="Name"
                   SelectedValuePath="Manufactureid" SelectedValue="{Binding Manufactureid}"/>
-        <TextBox Grid.Row="3"
-         materialDesign:HintAssist.Hint="Локация" Margin="50 20">
-            <TextBox.Text>
-                <Binding Path="Locationid" UpdateSourceTrigger="PropertyChanged">
-                </Binding>
-            </TextBox.Text>
+        <TextBox Grid.Row="3" Margin="50 20">
         </TextBox>
+        <ComboBox materialDesign:HintAssist.Hint="Локация" x:Name="ComboBoxLocation"
+                  Grid.Row="3" Margin="50 20" DisplayMemberPath="Name"
+                  SelectedValuePath="Locationid" SelectedValue="{Binding Locationid}"/>
         <TextBox Grid.Row="4"
          materialDesign:HintAssist.Hint="Описание" Margin="50 20">
             <TextBox.Text>

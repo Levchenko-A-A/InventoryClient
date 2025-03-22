@@ -40,7 +40,7 @@ namespace InventoryClient.View
             Categories = task.Result;
             ComboBoxCategory.ItemsSource = Categories;
 
-            Task<List<Manufacturer>> taskMan = Task.Run(() => getManufacturer());// новое
+            Task<List<Manufacturer>> taskMan = Task.Run(() => getManufacturer());
             Manufacturers = taskMan.Result;
             ComboBoxManufacturer.ItemsSource = Manufacturers;
         }
@@ -74,7 +74,7 @@ namespace InventoryClient.View
             }
         }
 
-        private async Task<List<Manufacturer>> getManufacturer()//новое
+        private async Task<List<Manufacturer>> getManufacturer()
         {
             try
             {
@@ -85,7 +85,7 @@ namespace InventoryClient.View
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 List<Manufacturer> clients = JsonSerializer.Deserialize<List<Manufacturer>>(responseText)!;
-                return new List<Manufacturer>(clients);
+                return clients;
             }
             catch (HttpRequestException ex)
             {
