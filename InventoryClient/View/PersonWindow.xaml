@@ -36,9 +36,9 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <CheckBox x:Name="CheckBoxAdmin" Grid.Row="0" IsChecked="{Binding IsAdmin}" Content="Администратор"/>
-            <CheckBox x:Name = "CheckBoxManager" Grid.Row="1" IsChecked="{Binding IsManager}"  Content="Менеджер"/>
-            <CheckBox x:Name="CheckBoxUser" Grid.Row="2" IsChecked="{Binding IsUser}"  Content="Пользователь"/>
-            <CheckBox x:Name="CheckBoxGuest" Grid.Row="3" IsChecked="{Binding IsGuest}"  Content="Гостевой доступ"/>
+            <CheckBox x:Name = "CheckBoxManager" Grid.Row="1" IsChecked="{Binding IsManager}"  Content="Менеджер" Checked="CheckBoxManager_Checked"/>
+            <CheckBox x:Name="CheckBoxUser" Grid.Row="2" IsChecked="{Binding IsUser}"  Content="Пользователь" Checked="CheckBoxUser_Checked"/>
+            <CheckBox x:Name="CheckBoxGuest" Grid.Row="3" IsChecked="{Binding IsGuest}"  Content="Гостевой доступ" Checked="CheckBoxGuest_Checked"/>
         </Grid> 
         <Grid Grid.Row="6">
                     <Grid.ColumnDefinitions>

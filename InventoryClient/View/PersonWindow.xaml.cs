@@ -42,5 +42,20 @@ namespace InventoryClient.View
         {
             Person.IsAdmin = (sender as CheckBox)?.IsChecked ?? false;
         }
+
+        private void CheckBoxManager_Checked(object sender, RoutedEventArgs e)
+        {
+            Person.IsManager = (sender as CheckBox)?.IsChecked ?? false;
+        }
+
+        private void CheckBoxUser_Checked(object sender, RoutedEventArgs e)
+        {
+            Person.IsUser = (sender as CheckBox)?.IsChecked ?? false;
+        }
+
+        private void CheckBoxGuest_Checked(object sender, RoutedEventArgs e)
+        {
+            Person.IsGuest = (sender as CheckBox)?.IsChecked ?? false;
+        }
     }
 }

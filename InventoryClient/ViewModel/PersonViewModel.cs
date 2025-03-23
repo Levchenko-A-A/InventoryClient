@@ -70,6 +70,14 @@ namespace InventoryClient.ViewModel
                         {
                            MessageBox.Show("Роль не соответствует требованиям.");
                         }
+                        if (personWindow.Person.IsManager)//новое, было без ифа await sendPerson(personWindow.Person);
+                        {
+                            await sendPerson(personWindow.Person);
+                        }
+                        else//новое
+                        {
+                            MessageBox.Show("Роль не соответствует требованиям.");
+                        }
                     }
                 }));
             }
