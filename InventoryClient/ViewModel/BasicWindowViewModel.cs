@@ -1,7 +1,9 @@
-﻿using InventoryClient.View;
+﻿using InventoryClient.Model;
+using InventoryClient.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +13,12 @@ namespace InventoryClient.ViewModel
     {
         public BasicWindowViewModel()
         {
+            //List<Person> people = List<Person>(RegisterUser.UserAllId!);
             BasicWindow.Instance!.MainFrame.Navigate(new PageDevice());
+            //foreach(Person item is people)
+            //{
+            //    if(person)
+            //}
         }
 
         private RelayCommand? personCommand;

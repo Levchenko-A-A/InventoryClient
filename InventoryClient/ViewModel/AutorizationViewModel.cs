@@ -71,10 +71,11 @@ namespace InventoryClient.ViewModel
                       string passWord = password!.Password;
                       RegisterUser.UserName = Login;
                       string result = await VerifyPassword(userName, passWord);
-                      if (result == "ok")
+                      if (result != "")
                       {
-                          List<Person> userAllId = await getPerson();
-                          RegisterUser.UserAllId = userAllId.Where(p => p.Personname == userName).ToList();
+                          MessageBox.Show(result);
+                          //List<Person> userAllId = await getPerson();
+                          //RegisterUser.UserAllId = userAllId.Where(p => p.Personname == userName).ToList();
                           Visibility = Visibility.Hidden;
                           BasicWindow basicWindow = new BasicWindow();
                           basicWindow.Show();
