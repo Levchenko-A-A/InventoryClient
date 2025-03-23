@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.Reflection.Metadata;
+using System.Collections.ObjectModel;
 
 namespace InventoryClient.ViewModel
 {
@@ -72,6 +73,8 @@ namespace InventoryClient.ViewModel
                       string result = await VerifyPassword(userName, passWord);
                       if (result == "ok")
                       {
+                          List<Person> userAllId = await getPerson();
+                          RegisterUser.UserAllId = userAllId.Where(p => p.Personname == userName).ToList();
                           Visibility = Visibility.Hidden;
                           BasicWindow basicWindow = new BasicWindow();
                           basicWindow.Show();
@@ -108,6 +111,35 @@ namespace InventoryClient.ViewModel
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
                 return "Error";
+            }
+        }
+        private async Task<List<Person>> getPerson()
+        {
+            try
+            {
+                StringContent content = new StringContent("getPersonAll");
+                using var request = new HttpRequestMessage(HttpMethod.Get, path);
+                request.Headers.Add("table", "person");
+                request.Content = content;
+                using HttpResponseMessage response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                List<Person> clients = JsonSerializer.Deserialize<List<Person>>(responseText)!;
+                return clients;
+            }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show($"Ошибка HTTP-запроса: {ex.Message}");
+                return new List<Person>();
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show($"Ошибка десериализации JSON: {ex.Message}");
+                return new List<Person>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
+                return new List<Person>();
             }
         }
     }
