@@ -24,22 +24,32 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        Visibility="{Binding ButPersonVis}"
+                        IsEnabled="{Binding ButPersonIsE}"
                         ToolTip="Список пользователей"
                         Grid.Row="0" Content="Пользователи" Margin="20 30" 
                         Command="{Binding PersonCommand}"/>
                 <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        Visibility="{Binding ButCategoryVis}"
+                        IsEnabled="{Binding ButCategoryIsE}"
                         ToolTip="Список категорий"
                         Grid.Row="1" Content="Категории" Margin="20 30" 
                         Command="{Binding CategoryCommand}"/>
                 <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        Visibility="{Binding ButDeviceVis}"
+                        IsEnabled="{Binding ButDeviceIsE}"
                         ToolTip="Список устройств"
                         Grid.Row="2" Content="Устройства" Margin="20 30" 
                         Command="{Binding DeviceCommand}"/>
                 <Button Style="{StaticResource MaterialDesignRaisedLightButton}" 
+                        Visibility="{Binding ButManufVis}"
+                        IsEnabled="{Binding ButManufIsE}"
                         ToolTip="Список производителей"
                         Grid.Column="0" Grid.Row="3" Content="Производитель" Margin="20 30" 
                         Command="{Binding ManufacturerCommand}"/>
                 <Button Style="{StaticResource MaterialDesignRaisedLightButton}" 
+                        Visibility="{Binding ButLocationVis}"
+                        IsEnabled="{Binding ButLocationIsE}"
                         ToolTip="Список Расположений"
                         Grid.Column="0" Grid.Row="4" Content="Расположение" Margin="20 30" 
                         Command="{Binding LocationCommand}"/>

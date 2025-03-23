@@ -71,7 +71,7 @@ namespace InventoryClient.ViewModel
                       string passWord = password!.Password;
                       RegisterUser.UserName = Login;
                       string result = await VerifyPassword(userName, passWord);
-                      if (result != "")
+                      if (result != "Erorr")
                       {
                           List<Personrole> personroles = await getPersonRole();
                           RegisterUser.UserAllId = personroles.Where(p => p.Personid == int.Parse(result)).ToList();
