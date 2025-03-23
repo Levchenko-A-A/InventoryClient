@@ -73,9 +73,8 @@ namespace InventoryClient.ViewModel
                       string result = await VerifyPassword(userName, passWord);
                       if (result != "")
                       {
-                          MessageBox.Show(result);
-                          //List<Person> userAllId = await getPerson();
-                          //RegisterUser.UserAllId = userAllId.Where(p => p.Personname == userName).ToList();
+                          List<Personrole> personroles = await getPersonRole();
+                          RegisterUser.UserAllId = personroles.Where(p => p.Personid == int.Parse(result)).ToList();
                           Visibility = Visibility.Hidden;
                           BasicWindow basicWindow = new BasicWindow();
                           basicWindow.Show();
@@ -114,33 +113,33 @@ namespace InventoryClient.ViewModel
                 return "Error";
             }
         }
-        private async Task<List<Person>> getPerson()
+        private async Task<List<Personrole>> getPersonRole()
         {
             try
             {
-                StringContent content = new StringContent("getPersonAll");
+                StringContent content = new StringContent("getPersonRole");
                 using var request = new HttpRequestMessage(HttpMethod.Get, path);
-                request.Headers.Add("table", "person");
+                request.Headers.Add("table", "personrole");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
-                List<Person> clients = JsonSerializer.Deserialize<List<Person>>(responseText)!;
-                return clients;
+                List<Personrole> personroles = JsonSerializer.Deserialize<List<Personrole>>(responseText)!;
+                return personroles;
             }
             catch (HttpRequestException ex)
             {
                 MessageBox.Show($"Ошибка HTTP-запроса: {ex.Message}");
-                return new List<Person>();
+                return new List<Personrole>();
             }
             catch (JsonException ex)
             {
                 MessageBox.Show($"Ошибка десериализации JSON: {ex.Message}");
-                return new List<Person>();
+                return new List<Personrole>();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
-                return new List<Person>();
+                return new List<Personrole>();
             }
         }
     }
