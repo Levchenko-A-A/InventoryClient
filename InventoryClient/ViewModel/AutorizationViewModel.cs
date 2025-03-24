@@ -21,7 +21,6 @@ namespace InventoryClient.ViewModel
 {
     internal class AutorizationViewModel: BaseViewModel
     {
-        public string path = "http://193.104.57.148:8080/connection/";
         private static HttpClient httpClient = new HttpClient();
         
         private Visibility visibility;
@@ -71,7 +70,7 @@ namespace InventoryClient.ViewModel
                       string passWord = password!.Password;
                       RegisterUser.UserName = Login;
                       string result = await VerifyPassword(userName, passWord);
-                      if (result != "Erorr")
+                      if (result != "Error")
                       {
                           List<Personrole> personroles = await getPersonRole();
                           RegisterUser.UserAllId = personroles.Where(p => p.Personid == int.Parse(result)).ToList();
@@ -94,7 +93,7 @@ namespace InventoryClient.ViewModel
                     Password = password
                 };
                 JsonContent content = JsonContent.Create(requestData);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "verifyPasswordPerson");
                 using var response = await httpClient.SendAsync(request);
@@ -118,7 +117,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 StringContent content = new StringContent("getPersonRole");
-                using var request = new HttpRequestMessage(HttpMethod.Get, path);
+                using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
                 request.Headers.Add("table", "personrole");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
