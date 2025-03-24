@@ -13,12 +13,13 @@ using System.Windows;
 
 namespace InventoryClient.ViewModel
 {
-    class LocationViewModel: BaseViewModel
+    class LocationViewModel : BaseViewModel
     {
         private HttpClient httpClient;
 
         public LocationViewModel()
         {
+            StatusButtom();
             httpClient = new HttpClient();
             Load();
         }
@@ -51,12 +52,12 @@ namespace InventoryClient.ViewModel
             }
         }
 
-        private RelayCommand addLocCommand;
-        public RelayCommand AddLocCommand
+        private RelayCommand addCommand;
+        public RelayCommand AddCommand
         {
             get
             {
-                return addLocCommand ?? (addLocCommand = new RelayCommand(async obj =>
+                return addCommand ?? (addCommand = new RelayCommand(async obj =>
                 {
                     LocationWindow locationWindow = new LocationWindow(new Location());
                     if (locationWindow.ShowDialog() == true)
@@ -66,12 +67,12 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
-        private RelayCommand updateLocCommand;
-        public RelayCommand UpdateLocCommand
+        private RelayCommand updateCommand;
+        public RelayCommand UpdateCommand
         {
             get
             {
-                return updateLocCommand ?? (updateLocCommand = new RelayCommand(async (selectedItem) =>
+                return updateCommand ?? (updateCommand = new RelayCommand(async (selectedItem) =>
                 {
                     Location? location = selectedItem as Location;
                     if (location == null) return;
@@ -83,12 +84,12 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
-        private RelayCommand deleteLocCommand;
-        public RelayCommand DeleteLocCommand
+        private RelayCommand deleteCommand;
+        public RelayCommand DeleteCommand
         {
             get
             {
-                return deleteLocCommand ?? (deleteLocCommand = new RelayCommand(async (selectedItem) =>
+                return deleteCommand ?? (deleteCommand = new RelayCommand(async (selectedItem) =>
                 {
                     Location? location = selectedItem as Location;
                     if (location == null) return;
@@ -99,12 +100,42 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
+        private bool butAddIsE;
+        public bool ButAddIsE
+        {
+            get { return butAddIsE; }
+            set
+            {
+                butAddIsE = value;
+                OnPropertyChanged(nameof(ButAddIsE));
+            }
+        }
+        private bool butUpdateIsE;
+        public bool ButUpdateIsE
+        {
+            get { return butUpdateIsE; }
+            set
+            {
+                butUpdateIsE = value;
+                OnPropertyChanged(nameof(ButUpdateIsE));
+            }
+        }
+        private bool butDeleteIsE;
+        public bool ButDeleteIsE
+        {
+            get { return butDeleteIsE; }
+            set
+            {
+                butDeleteIsE = value;
+                OnPropertyChanged(nameof(ButDeleteIsE));
+            }
+        }
         private async Task<ObservableCollection<Location>> getLocation()
         {
             try
             {
                 StringContent content = new StringContent("getLocationAll");
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
                 request.Headers.Add("table", "location");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -134,7 +165,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(location);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "location");
                 using var response = await httpClient.SendAsync(request);
@@ -161,7 +192,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(locationId);
-                var request = new HttpRequestMessage(HttpMethod.Delete, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Delete, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "location");
                 using var response = await httpClient.SendAsync(request);
@@ -188,7 +219,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(location);
-                var request = new HttpRequestMessage(HttpMethod.Put, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Put, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "location");
                 using var response = await httpClient.SendAsync(request);
@@ -202,6 +233,42 @@ namespace InventoryClient.ViewModel
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        private void StatusButtom()
+        {
+            if (RegisterUser.UserAllId != null)
+            {
+                if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = true;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 2) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = true;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = false;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 4) == true)
+                {
+                    ButAddIsE = false;
+                    ButUpdateIsE = false;
+                    ButDeleteIsE = false;
+                }
+            }
+            else
+            {
+                ButAddIsE = false;
+                ButUpdateIsE = false;
+                ButDeleteIsE = false;
             }
         }
     }
