@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace InventoryClient.Model
 {
-    internal class RegisterUser
+    public class RegisterUser
     {
-
+        public static string? UserName { get; set; }
+        public static string? access_token { get; set; }
+        public static List<Personrole>? UserAllId { get; set; }
     }
 }

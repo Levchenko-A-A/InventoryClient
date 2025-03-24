@@ -38,24 +38,39 @@ namespace InventoryClient.View
             DialogResult = false;
         }
 
-        private void Admin_Checked(object sender, RoutedEventArgs e)//новое
+        private void Admin_Checked(object sender, RoutedEventArgs e)
         {
-            Person.IsAdmin = (sender as CheckBox)?.IsChecked ?? false;
+            if (CheckBoxAdmin.IsChecked == true)
+            {
+                Person.IsAdmin = (sender as CheckBox)?.IsChecked ?? false;
+                CheckBoxManager.IsChecked=false;
+                CheckBoxGuest.IsChecked=false;
+                CheckBoxUser.IsChecked=false;
+            }
         }
 
         private void CheckBoxManager_Checked(object sender, RoutedEventArgs e)
         {
             Person.IsManager = (sender as CheckBox)?.IsChecked ?? false;
+            CheckBoxAdmin.IsChecked =false;
+            CheckBoxGuest.IsChecked =false;
+            CheckBoxUser.IsChecked =false;
         }
 
         private void CheckBoxUser_Checked(object sender, RoutedEventArgs e)
         {
             Person.IsUser = (sender as CheckBox)?.IsChecked ?? false;
+            CheckBoxAdmin.IsChecked=false;
+            CheckBoxManager.IsChecked = false;
+            CheckBoxGuest.IsChecked = false;
         }
 
         private void CheckBoxGuest_Checked(object sender, RoutedEventArgs e)
         {
             Person.IsGuest = (sender as CheckBox)?.IsChecked ?? false;
+            CheckBoxAdmin.IsChecked=false;
+            CheckBoxManager.IsChecked = false;
+            CheckBoxUser.IsChecked = false;
         }
     }
 }

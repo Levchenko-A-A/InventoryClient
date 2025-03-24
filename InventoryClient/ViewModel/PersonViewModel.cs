@@ -3,6 +3,7 @@ using InventoryClient.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace InventoryClient.ViewModel
 {
@@ -54,14 +56,55 @@ namespace InventoryClient.ViewModel
         private RelayCommand addPersonCommand;
         public RelayCommand AddPersonCommand
         {
+            
             get
             {
                 return addPersonCommand ?? (addPersonCommand = new RelayCommand(async obj =>
                 {
                     PersonWindow personWindow = new PersonWindow(new Person());
+                    //if (personWindow.ShowDialog() == true)
+                    //    if (personWindow.Person.IsAdmin)
+                    //    {
+                    //        await sendPerson(personWindow.Person);
+                    //    }
+                    //    else
+                    //    {
+                    //        MessageBox.Show("Роль не соответствует требованиям.");
+                    //    }
                     if (personWindow.ShowDialog() == true)
                     {
+                        if (RegisterUser.UserName!=null)
+                        {
+                           
+                        }    
+                    }
+                    else
+                    {
+                        MessageBox.Show("Роль не соответствует требованиям.");
+                    }
+                    if (personWindow.Person.IsManager)
+                    {
                         await sendPerson(personWindow.Person);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Роль не соответствует требованиям.");
+                    }
+                    if (personWindow.Person.IsUser)
+                    {
+                        await sendPerson(personWindow.Person);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Роль не соответствует требованиям.");
+                    }
+                    if (personWindow.Person.IsGuest)
+                    {
+                        await sendPerson(personWindow.Person);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Роль не соответствует требованиям.");
                     }
                 }));
             }

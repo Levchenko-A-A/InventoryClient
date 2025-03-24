@@ -72,6 +72,7 @@ public partial class Person
     public bool IsUser { get; set; }    //новое для  Checkbox
     public bool IsGuest { get; set; } //новое для  Checkbox
 
+
     public event PropertyChangedEventHandler? PropertyChanged;
     public void OnProperyChanged([CallerMemberName] string prop = "")
     {
