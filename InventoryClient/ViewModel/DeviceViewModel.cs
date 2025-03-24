@@ -19,6 +19,7 @@ namespace InventoryClient.ViewModel
 
         public DeviceViewModel()
         {
+            StatusButtom();
             httpClient = new HttpClient();
             Load();
         }
@@ -97,6 +98,36 @@ namespace InventoryClient.ViewModel
                         await delDevice(device.Deviceid);
                     }
                 }));
+            }
+        }
+        private bool butAddIsE;
+        public bool ButAddIsE
+        {
+            get { return butAddIsE; }
+            set
+            {
+                butAddIsE = value;
+                OnPropertyChanged(nameof(ButAddIsE));
+            }
+        }
+        private bool butUpdateIsE;
+        public bool ButUpdateIsE
+        {
+            get { return butUpdateIsE; }
+            set
+            {
+                butUpdateIsE = value;
+                OnPropertyChanged(nameof(ButUpdateIsE));
+            }
+        }
+        private bool butDeleteIsE;
+        public bool ButDeleteIsE
+        {
+            get { return butDeleteIsE; }
+            set
+            {
+                butDeleteIsE = value;
+                OnPropertyChanged(nameof(ButDeleteIsE));
             }
         }
         private async Task<ObservableCollection<Device>> getDevises()
@@ -202,6 +233,43 @@ namespace InventoryClient.ViewModel
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        private void StatusButtom()
+        {
+            if (RegisterUser.UserAllId != null)
+            {
+                if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = true;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 2) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = true;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = false;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 4) == true)
+                {
+                    ButAddIsE = false;
+                    ButUpdateIsE = false;
+                    ButDeleteIsE = false;
+
+                }
+            }
+            else
+            {
+                ButAddIsE = false;
+                ButUpdateIsE = false;
+                ButDeleteIsE = false;
             }
         }
     }
