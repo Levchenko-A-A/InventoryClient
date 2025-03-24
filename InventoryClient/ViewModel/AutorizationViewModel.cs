@@ -14,20 +14,14 @@ using InventoryClient.View;
 using System.Windows.Input;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
+using System.Reflection.Metadata;
+using System.Collections.ObjectModel;
 
 namespace InventoryClient.ViewModel
 {
-    class AutorizationViewModel: BaseViewModel
+    internal class AutorizationViewModel : BaseViewModel
     {
-        public string path = "http://193.104.57.148:8080/connection/";
         private static HttpClient httpClient = new HttpClient();
-        JsonUser RegisterUser= new JsonUser();
-        public ICommand EnterCommand { get; }
-
-        public AutorizationViewModel()
-        {
-            EnterCommand = new RelayCommand(ExecuteEnter, CanExecuteEnter);
-        }
 
         private Visibility visibility;
         public Visibility Visibility
@@ -63,6 +57,32 @@ namespace InventoryClient.ViewModel
             }
         }
 
+        private RelayCommand? enterCommand;
+        public RelayCommand EnterCommand
+        {
+            get
+            {
+                return enterCommand ??
+                  (enterCommand = new RelayCommand(async obj =>
+                  {
+                      PasswordBox? password = obj as PasswordBox;
+                      string userName = Login;
+                      string passWord = password!.Password;
+                      RegisterUser.UserName = Login;
+                      string result = await VerifyPassword(userName, passWord);
+                      if (result != "Error")
+                      {
+                          List<Personrole> personroles = await getPersonRole();
+                          RegisterUser.UserAllId = personroles.Where(p => p.Personid == int.Parse(result)).ToList();
+                          Visibility = Visibility.Hidden;
+                          BasicWindow basicWindow = new BasicWindow();
+                          basicWindow.Show();
+                      }
+                      else MessageBox.Show("Пользователя с таким именем или паролем не существует!");
+                  }));
+            }
+        }
+
         public static async Task<string> VerifyPassword(string username, string password)
         {
             try
@@ -73,7 +93,7 @@ namespace InventoryClient.ViewModel
                     Password = password
                 };
                 JsonContent content = JsonContent.Create(requestData);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "verifyPasswordPerson");
                 using var response = await httpClient.SendAsync(request);
@@ -92,25 +112,34 @@ namespace InventoryClient.ViewModel
                 return "Error";
             }
         }
-        private async void ExecuteEnter(object parameter)
+        private async Task<List<Personrole>> getPersonRole()
         {
-            PasswordBox? password = parameter as PasswordBox;
-            string userName = Login;
-            string passWord = password!.Password;
-            RegisterUser.UserName = Login;
-            string result = await VerifyPassword(userName, passWord);
-            if (result == "ok")
+            try
             {
-                Visibility = Visibility.Hidden;
-                BasicWindow basicWindow = new BasicWindow();
-                basicWindow.Show();
+                StringContent content = new StringContent("getPersonRole");
+                using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("table", "personrole");
+                request.Content = content;
+                using HttpResponseMessage response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                List<Personrole> personroles = JsonSerializer.Deserialize<List<Personrole>>(responseText)!;
+                return personroles;
             }
-            else MessageBox.Show("Пользователя с таким именем или паролем не существует!");
-        }
-
-        private bool CanExecuteEnter(object parameter)
-        {
-            return true;
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show($"Ошибка HTTP-запроса: {ex.Message}");
+                return new List<Personrole>();
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show($"Ошибка десериализации JSON: {ex.Message}");
+                return new List<Personrole>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
+                return new List<Personrole>();
+            }
         }
     }
 }

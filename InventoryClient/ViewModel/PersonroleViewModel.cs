@@ -4,186 +4,152 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net.Http.Json;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace InventoryClient.ViewModel
 {
-    class PersonroleViewModel: BaseViewModel
+    class PersonViewModel : BaseViewModel
     {
         private HttpClient httpClient;
 
-        public PersonroleViewModel()
+        public PersonViewModel()
         {
             httpClient = new HttpClient();
             Load();
-            //AddPersonRoleButVis = Visibility.Collapsed;
-            AddPersonRoleButIsE = false;
-            UpdatePersonRoleButIsE = false;
-            DelPersonRoleButIsE = false;
-
-
         }
+
         private void Load()
         {
-            PersonRoles = null;
-            Task<ObservableCollection<Personrole>> task = Task.Run(() => getPersonRole());
-            PersonRoles = task.Result;
-            
+            Persons = null;
+            Task<ObservableCollection<Person>> task = Task.Run(() => getPerson());
+            Persons = task.Result;
         }
-        private ObservableCollection<Personrole>? personRoles;
-        public ObservableCollection<Personrole>? PersonRoles
+
+        private ObservableCollection<Person>? persons;
+        public ObservableCollection<Person>? Persons
         {
-            get { return personRoles; }
+            get { return persons; }
             set
             {
-                personRoles = value;
-                OnPropertyChanged(nameof(PersonRoles));
+                persons = value;
+                OnPropertyChanged(nameof(Persons));
             }
         }
-        private Personrole? selectedPersonRole;
-        public Personrole? SelectedPersonRole
+        private Person? selectedPerson;
+        public Person? SelectedPerson
         {
-            get => selectedPersonRole;
+            get => selectedPerson;
             set
             {
-                selectedPersonRole = value;
-                OnPropertyChanged(nameof(SelectedPersonRole));
-            }
-        }
-        //private Visibility addPersonRoleButVis;
-        //public Visibility AddPersonRoleButVis
-        //{
-        //    get { return addPersonRoleButVis; }
-        //    set
-        //    {
-        //        addPersonRoleButVis = value;
-        //        OnPropertyChanged(nameof(AddPersonRoleButVis));
-        //    }
-        //}
-        private bool addPersonRoleButIsE;
-        public bool AddPersonRoleButIsE
-        {
-            get { return addPersonRoleButIsE; }
-            set
-            {
-                addPersonRoleButIsE = value;
-                OnPropertyChanged(nameof(AddPersonRoleButIsE));
-            }
-        }
-        private bool updatePersonRoleButIsE;
-        public bool UpdatePersonRoleButIsE
-        {
-            get { return updatePersonRoleButIsE; }
-            set
-            {
-                updatePersonRoleButIsE = value;
-                OnPropertyChanged(nameof(UpdatePersonRoleButIsE));
-            }
-        }
-        private bool delPersonRoleButIsE;
-        public bool DelPersonRoleButIsE
-        {
-            get { return delPersonRoleButIsE; }
-            set
-            {
-                delPersonRoleButIsE = value;
-                OnPropertyChanged(nameof(DelPersonRoleButIsE));
+                selectedPerson = value;
+                OnPropertyChanged(nameof(SelectedPerson));
             }
         }
 
-        //private RelayCommand addCommand;
-        //public RelayCommand AddCommand
-        //{
-        //    get
-        //    {
-        //        return addCommand ?? (addCommand = new RelayCommand(async obj =>
-        //        {
-        //            RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(new Role());
-        //            if (roleAddUpdateWindow.ShowDialog() == true)
-        //            {
-        //                await sendPersonRole(roleAddUpdateWindow.Role);
-        //            }
-        //        }));
-        //    }
-        //}
-        //private RelayCommand deleteCommand;
-        //public RelayCommand DeleteCommand
-        //{
-        //    get
-        //    {
-        //        return deleteCommand ?? (deleteCommand = new RelayCommand(async (selectedItem) =>
-        //        {
-        //            Personrole? role = selectedItem as Personrole;
-        //            if (role == null) return;
-        //            if (MessageBox.Show("Вы действительно хотите удалить элемент?", "Внимание", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-        //            {
-        //                await delPersonRole(role.Userroleid);
-        //            }
-        //        }));
-        //    }
-        //}
+        private RelayCommand addPersonCommand;
+        public RelayCommand AddPersonCommand
+        {
+            get
+            {
+                return addPersonCommand ?? (addPersonCommand = new RelayCommand(async obj =>
+                {
+                    PersonWindow personWindow = new PersonWindow(new Person());
+                    if (personWindow.ShowDialog() == true)
+                    {
+                        await sendPerson(personWindow.Person);
+                    }
+                }));
+            }
+        }
+
+        private RelayCommand deletePersonCommand;
+        public RelayCommand DeletePersonCommand
+        {
+            get
+            {
+                return deletePersonCommand ?? (deletePersonCommand = new RelayCommand(async (selectedItem) =>
+                {
+                    Person? client = selectedItem as Person;
+                    if (client == null) return;
+                    if (MessageBox.Show("Вы действительно хотите удалить элемент?", "Внимание", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+                    {
+                        await delPerson(client.Personid);
+                    }
+                }));
+            }
+        }
         //private RelayCommand updateCommand;
         //public RelayCommand UpdateCommand
         //{
         //    get
         //    {
-        //        return updateCommand ?? (updateCommand = new RelayCommand(async (selectedItem) =>
+        //        return usersCommand ?? (usersCommand = new RelayCommand(async obj =>
         //        {
-        //            Personrole? role = selectedItem as Personrole;
-        //            if (role == null) return;
-        //            RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(role);
-        //            if (roleAddUpdateWindow.ShowDialog() == true)
+        //            Person? person = selectedPerson as Person;
+        //            if (person == null) return;
+        //            PersonWindow personWindow = new PersonWindow(person);
+        //            if (personWindow.ShowDialog() == true)
         //            {
-        //                MessageBox.Show(roleAddUpdateWindow.Role.Description);
-        //                await updatePersonRole(roleAddUpdateWindow.Role);
+        //                await updateClient(personWindow.Person);
         //            }
         //        }));
         //    }
         //}
-        private async Task<ObservableCollection<Personrole>> getPersonRole()
+        private RelayCommand usersCommand;
+        public RelayCommand UsersCommand
+        {
+            get
+            {
+                return usersCommand ?? (usersCommand = new RelayCommand(obj =>
+                {
+                    RoleWindow roleWindow = new RoleWindow();
+                    roleWindow.Show();
+                }));
+            }
+        }
+
+        private async Task<ObservableCollection<Person>> getPerson()
         {
             try
             {
-                StringContent content = new StringContent("getPersonRole");
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
-                request.Headers.Add("table", "personrole");
+                StringContent content = new StringContent("getPersonAll");
+                using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("table", "person");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
-                List<Personrole> roles = JsonSerializer.Deserialize<List<Personrole>>(responseText)!;
-                return new ObservableCollection<Personrole>(roles);
+                List<Person> clients = JsonSerializer.Deserialize<List<Person>>(responseText)!;
+                return new ObservableCollection<Person>(clients);
             }
             catch (HttpRequestException ex)
             {
                 MessageBox.Show($"Ошибка HTTP-запроса: {ex.Message}");
-                return new ObservableCollection<Personrole>();
+                return new ObservableCollection<Person>();
             }
             catch (JsonException ex)
             {
                 MessageBox.Show($"Ошибка десериализации JSON: {ex.Message}");
-                return new ObservableCollection<Personrole>();
+                return new ObservableCollection<Person>();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
-                return new ObservableCollection<Personrole>();
+                return new ObservableCollection<Person>();
             }
         }
-        private async Task sendPersonRole(Personrole role)
+        private async Task sendPerson(Person person)
         {
             try
             {
-                JsonContent content = JsonContent.Create(role);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
+                JsonContent content = JsonContent.Create(person);
+                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
-                request.Headers.Add("table", "personrole");
+                request.Headers.Add("table", "person");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 if (responseText == "Error")
@@ -203,14 +169,14 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
-        public async Task delPersonRole(int personroleId)
+        public async Task delPerson(int clientId)
         {
             try
             {
-                JsonContent content = JsonContent.Create(personroleId);
-                var request = new HttpRequestMessage(HttpMethod.Delete, "http://193.104.57.148:8080/connection/");
+                JsonContent content = JsonContent.Create(clientId);
+                var request = new HttpRequestMessage(HttpMethod.Delete, ServerPath.Path);
                 request.Content = content;
-                request.Headers.Add("table", "personrole");
+                request.Headers.Add("table", "person");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 if (responseText == "Error")
@@ -220,27 +186,6 @@ namespace InventoryClient.ViewModel
                     MessageBox.Show("Пользователь удален");
                     Load();
                 }
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"Ошибка HTTP: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка: {ex.Message}");
-            }
-        }
-        public async Task updatePersonRole(Personrole personrole)
-        {
-            try
-            {
-                JsonContent content = JsonContent.Create(personrole);
-                var request = new HttpRequestMessage(HttpMethod.Put, "http://193.104.57.148:8080/connection/");
-                request.Content = content;
-                request.Headers.Add("table", "personrole");
-                using var response = await httpClient.SendAsync(request);
-                string responseText = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseText);
             }
             catch (HttpRequestException ex)
             {

@@ -1,4 +1,5 @@
 ﻿using InventoryClient.Model;
+using InventoryClient.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -32,7 +33,7 @@ namespace InventoryClient.Infrastructure.Converters
             try
             {
                 JsonContent content = JsonContent.Create(manufId);
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
                 request.Headers.Add("table", "location");
                 request.Content = content;
                 using var response = await httpClient.SendAsync(request);

@@ -13,9 +13,8 @@ using System.Windows;
 
 namespace InventoryClient.ViewModel
 {
-    class RoleViewModel: BaseViewModel
+    class RoleViewModel : BaseViewModel
     {
-        public string path = "http://193.104.57.148:8080/connection/";
         private HttpClient httpClient;
 
         public RoleViewModel()
@@ -107,7 +106,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 StringContent content = new StringContent("getRolleAll");
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
                 request.Headers.Add("table", "role");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -136,7 +135,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(role);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "role");
                 using var response = await httpClient.SendAsync(request);
@@ -163,7 +162,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(clientId);
-                var request = new HttpRequestMessage(HttpMethod.Delete, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Delete, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "role");
                 using var response = await httpClient.SendAsync(request);
@@ -190,7 +189,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(role);
-                var request = new HttpRequestMessage(HttpMethod.Put, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Put, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "role");
                 using var response = await httpClient.SendAsync(request);

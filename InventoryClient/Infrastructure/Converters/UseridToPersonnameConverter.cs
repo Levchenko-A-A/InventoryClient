@@ -10,10 +10,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using InventoryClient.ViewModel;
 
 namespace InventoryClient.Infrastructure.Converters
 {
-    class UseridToPersonnameConverter: IValueConverter
+    class UseridToPersonnameConverter : IValueConverter
     {
         private HttpClient httpClient = new HttpClient();
 
@@ -31,7 +32,7 @@ namespace InventoryClient.Infrastructure.Converters
             try
             {
                 JsonContent content = JsonContent.Create(personId);
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
                 request.Headers.Add("table", "person");
                 request.Content = content;
                 using var response = await httpClient.SendAsync(request);
