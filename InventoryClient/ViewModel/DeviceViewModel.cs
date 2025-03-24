@@ -20,6 +20,7 @@ namespace InventoryClient.ViewModel
         public DeviceViewModel()
         {
             StatusButtom();
+            
             httpClient = new HttpClient();
             Load();
         }
