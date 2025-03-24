@@ -141,8 +141,9 @@ namespace InventoryClient.ViewModel
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
-                List<Manufacturer> clients = JsonSerializer.Deserialize<List<Manufacturer>>(responseText)!;
-                return new ObservableCollection<Manufacturer>(clients);
+                List<Manufacturer> manuf = JsonSerializer.Deserialize<List<Manufacturer>>(responseText)!;
+                manuf = manuf.OrderBy(p => p.Manufacturerid).ToList();
+                return new ObservableCollection<Manufacturer>(manuf);
             }
             catch (HttpRequestException ex)
             {

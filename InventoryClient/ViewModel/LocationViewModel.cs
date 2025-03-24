@@ -140,8 +140,9 @@ namespace InventoryClient.ViewModel
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
-                List<Location> clients = JsonSerializer.Deserialize<List<Location>>(responseText)!;
-                return new ObservableCollection<Location>(clients);
+                List<Location> location = JsonSerializer.Deserialize<List<Location>>(responseText)!;
+                location = location.OrderBy(p => p.Locationid).ToList();
+                return new ObservableCollection<Location>(location);
             }
             catch (HttpRequestException ex)
             {
