@@ -13,12 +13,13 @@ using System.Windows;
 
 namespace InventoryClient.ViewModel
 {
-    class CategoryViewModel: BaseViewModel
+    class CategoryViewModel : BaseViewModel
     {
         private HttpClient httpClient;
 
         public CategoryViewModel()
         {
+            StatusButtom();
             httpClient = new HttpClient();
             Load();
         }
@@ -26,7 +27,7 @@ namespace InventoryClient.ViewModel
         private void Load()
         {
             Categories = null;
-            Task<ObservableCollection<Category>> task = Task.Run(() => getCategory());
+            Task<ObservableCollection<Category>> task = Task.Run(() => getLocation());
             Categories = task.Result;
         }
 
@@ -50,6 +51,7 @@ namespace InventoryClient.ViewModel
                 OnPropertyChanged(nameof(SelectedCategories));
             }
         }
+
         private RelayCommand addCommand;
         public RelayCommand AddCommand
         {
@@ -98,12 +100,42 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
-        private async Task<ObservableCollection<Category>> getCategory()
+        private bool butAddIsE;
+        public bool ButAddIsE
+        {
+            get { return butAddIsE; }
+            set
+            {
+                butAddIsE = value;
+                OnPropertyChanged(nameof(ButAddIsE));
+            }
+        }
+        private bool butUpdateIsE;
+        public bool ButUpdateIsE
+        {
+            get { return butUpdateIsE; }
+            set
+            {
+                butUpdateIsE = value;
+                OnPropertyChanged(nameof(ButUpdateIsE));
+            }
+        }
+        private bool butDeleteIsE;
+        public bool ButDeleteIsE
+        {
+            get { return butDeleteIsE; }
+            set
+            {
+                butDeleteIsE = value;
+                OnPropertyChanged(nameof(ButDeleteIsE));
+            }
+        }
+        private async Task<ObservableCollection<Category>> getLocation()
         {
             try
             {
                 StringContent content = new StringContent("getCategoryAll");
-                using var request = new HttpRequestMessage(HttpMethod.Get, "http://193.104.57.148:8080/connection/");
+                using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
                 request.Headers.Add("table", "category");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -133,7 +165,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(category);
-                var request = new HttpRequestMessage(HttpMethod.Post, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
@@ -160,7 +192,7 @@ namespace InventoryClient.ViewModel
             try
             {
                 JsonContent content = JsonContent.Create(CategoryId);
-                var request = new HttpRequestMessage(HttpMethod.Delete, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Delete, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
@@ -182,13 +214,12 @@ namespace InventoryClient.ViewModel
                 Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
-
         public async Task updateCategory(Category category)
         {
             try
             {
                 JsonContent content = JsonContent.Create(category);
-                var request = new HttpRequestMessage(HttpMethod.Put, "http://193.104.57.148:8080/connection/");
+                var request = new HttpRequestMessage(HttpMethod.Put, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "category");
                 using var response = await httpClient.SendAsync(request);
@@ -202,6 +233,42 @@ namespace InventoryClient.ViewModel
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        private void StatusButtom()
+        {
+            if (RegisterUser.UserAllId != null)
+            {
+                if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = true;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 2) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = true;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = false;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 4) == true)
+                {
+                    ButAddIsE = false;
+                    ButUpdateIsE = false;
+                    ButDeleteIsE = false;
+                }
+            }
+            else
+            {
+                ButAddIsE = false;
+                ButUpdateIsE = false;
+                ButDeleteIsE = false;
             }
         }
     }
