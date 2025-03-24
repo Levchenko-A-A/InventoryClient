@@ -142,6 +142,7 @@ namespace InventoryClient.ViewModel
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 List<Device> devices = JsonSerializer.Deserialize<List<Device>>(responseText)!;
+                devices = devices.OrderBy(p => p.Deviceid).ToList();
                 return new ObservableCollection<Device>(devices);
             }
             catch (HttpRequestException ex)
