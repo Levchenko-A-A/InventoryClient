@@ -144,62 +144,13 @@ namespace InventoryClient.ViewModel
         {
             if (RegisterUser.UserAllId != null)
             {
-                //MessageBox.Show(RegisterUser.UserAllId.Any(p => p.Roleid == 4).ToString());
-                if (RegisterUser.UserAllId.Any(p => p.Roleid == 4) == true)
+                if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
                 {
-                    ButPersonIsE = false;
-                    ButCategoryIsE = false;
-                    ButDeviceIsE = false;
-                    ButManufIsE = false;
-                    ButLocationIsE = false;
-                    if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
-                    {
-                        ButPersonIsE = false;
-                        ButCategoryIsE = false;
-                        ButDeviceIsE = true;
-                        ButManufIsE = false;
-                        ButLocationIsE = false;
-                    }
-                    else if (RegisterUser.UserAllId.Any(p => p.Roleid == 2) == true)
-                    {
-                        ButPersonIsE = false;
-                        ButCategoryIsE = true;
-                        ButDeviceIsE = true;
-                        ButManufIsE = true;
-                        ButLocationIsE = true;
-                    }
-                    else if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
-                    {
-                        ButPersonIsE = true;
-                        ButCategoryIsE = true;
-                        ButDeviceIsE = true;
-                        ButManufIsE = true;
-                        ButLocationIsE = true;
-                    }
-                }
-                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
-                {
-                    ButPersonIsE = false;
-                    ButCategoryIsE = false;
+                    ButPersonIsE = true;
+                    ButCategoryIsE = true;
                     ButDeviceIsE = true;
-                    ButManufIsE = false;
-                    ButLocationIsE = false;
-                    if (RegisterUser.UserAllId.Any(p => p.Roleid == 2) == true)
-                    {
-                        ButPersonIsE = false;
-                        ButCategoryIsE = true;
-                        ButDeviceIsE = true;
-                        ButManufIsE = true;
-                        ButLocationIsE = true;
-                    }
-                    else if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
-                    {
-                        ButPersonIsE = true;
-                        ButCategoryIsE = true;
-                        ButDeviceIsE = true;
-                        ButManufIsE = true;
-                        ButLocationIsE = true;
-                    }
+                    ButManufIsE = true;
+                    ButLocationIsE = true;
                 }
                 else if (RegisterUser.UserAllId.Any(p => p.Roleid == 2) == true)
                 {
@@ -208,22 +159,23 @@ namespace InventoryClient.ViewModel
                     ButDeviceIsE = true;
                     ButManufIsE = true;
                     ButLocationIsE = true;
-                    if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
-                    {
-                        ButPersonIsE = true;
-                        ButCategoryIsE = true;
-                        ButDeviceIsE = true;
-                        ButManufIsE = true;
-                        ButLocationIsE = true;
-                    }
                 }
-                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
                 {
-                    ButPersonIsE = true;
-                    ButCategoryIsE = true;
+                    ButPersonIsE = false;
+                    ButCategoryIsE = false;
                     ButDeviceIsE = true;
-                    ButManufIsE = true;
-                    ButLocationIsE = true;
+                    ButManufIsE = false;
+                    ButLocationIsE = false;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 4) == true)
+                {
+                    ButPersonIsE = false;
+                    ButCategoryIsE = false;
+                    ButDeviceIsE = false;
+                    ButManufIsE = false;
+                    ButLocationIsE = false;
+                    
                 }
             }
             else
