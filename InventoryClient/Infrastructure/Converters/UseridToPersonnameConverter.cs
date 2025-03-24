@@ -10,7 +10,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using InventoryClient.ViewModel;
 
 namespace InventoryClient.Infrastructure.Converters
 {

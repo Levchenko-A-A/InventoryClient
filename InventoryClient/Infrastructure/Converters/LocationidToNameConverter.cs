@@ -1,5 +1,4 @@
 ﻿using InventoryClient.Model;
-using InventoryClient.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
