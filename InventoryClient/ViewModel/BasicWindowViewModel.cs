@@ -163,10 +163,10 @@ namespace InventoryClient.ViewModel
                 else if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
                 {
                     ButPersonIsE = false;
-                    ButCategoryIsE = false;
+                    ButCategoryIsE = true;
                     ButDeviceIsE = true;
-                    ButManufIsE = false;
-                    ButLocationIsE = false;
+                    ButManufIsE = true;
+                    ButLocationIsE = true;
                 }
                 else if (RegisterUser.UserAllId.Any(p => p.Roleid == 4) == true)
                 {

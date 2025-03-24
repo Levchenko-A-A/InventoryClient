@@ -262,7 +262,6 @@ namespace InventoryClient.ViewModel
                     ButAddIsE = false;
                     ButUpdateIsE = false;
                     ButDeleteIsE = false;
-
                 }
             }
             else

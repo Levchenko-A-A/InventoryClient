@@ -19,6 +19,7 @@ namespace InventoryClient.ViewModel
 
         public ManufacturerViewModel()
         {
+            StatusButtom();
             httpClient = new HttpClient();
             Load();
         }
@@ -51,12 +52,12 @@ namespace InventoryClient.ViewModel
             }
         }
 
-        private RelayCommand addManufCommand;
-        public RelayCommand AddManufCommand
+        private RelayCommand addCommand;
+        public RelayCommand AddCommand
         {
             get
             {
-                return addManufCommand ?? (addManufCommand = new RelayCommand(async obj =>
+                return addCommand ?? (addCommand = new RelayCommand(async obj =>
                 {
                     ManufacturerWindow manufacturerWindow = new ManufacturerWindow(new Manufacturer());
                     if (manufacturerWindow.ShowDialog() == true)
@@ -66,12 +67,12 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
-        private RelayCommand updateManufCommand;
-        public RelayCommand UpdateManufCommand
+        private RelayCommand updateCommand;
+        public RelayCommand UpdateCommand
         {
             get
             {
-                return updateManufCommand ?? (updateManufCommand = new RelayCommand(async (selectedItem) =>
+                return updateCommand ?? (updateCommand = new RelayCommand(async (selectedItem) =>
                 {
                     Manufacturer? manuf = selectedItem as Manufacturer;
                     if (manuf == null) return;
@@ -84,12 +85,12 @@ namespace InventoryClient.ViewModel
                 }));
             }
         }
-        private RelayCommand deleteManufCommand;
-        public RelayCommand DeleteManufCommand
+        private RelayCommand deleteCommand;
+        public RelayCommand DeleteCommand
         {
             get
             {
-                return deleteManufCommand ?? (deleteManufCommand = new RelayCommand(async (selectedItem) =>
+                return deleteCommand ?? (deleteCommand = new RelayCommand(async (selectedItem) =>
                 {
                     Manufacturer? manufacturer = selectedItem as Manufacturer;
                     if (manufacturer == null) return;
@@ -98,6 +99,36 @@ namespace InventoryClient.ViewModel
                         await delManuf(manufacturer.Manufacturerid);
                     }
                 }));
+            }
+        }
+        private bool butAddIsE;
+        public bool ButAddIsE
+        {
+            get { return butAddIsE; }
+            set
+            {
+                butAddIsE = value;
+                OnPropertyChanged(nameof(ButAddIsE));
+            }
+        }
+        private bool butUpdateIsE;
+        public bool ButUpdateIsE
+        {
+            get { return butUpdateIsE; }
+            set
+            {
+                butUpdateIsE = value;
+                OnPropertyChanged(nameof(ButUpdateIsE));
+            }
+        }
+        private bool butDeleteIsE;
+        public bool ButDeleteIsE
+        {
+            get { return butDeleteIsE; }
+            set
+            {
+                butDeleteIsE = value;
+                OnPropertyChanged(nameof(ButDeleteIsE));
             }
         }
         private async Task<ObservableCollection<Manufacturer>> getManufacturer()
@@ -203,6 +234,42 @@ namespace InventoryClient.ViewModel
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+        private void StatusButtom()
+        {
+            if (RegisterUser.UserAllId != null)
+            {
+                if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = true;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 2) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = true;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
+                {
+                    ButAddIsE = true;
+                    ButUpdateIsE = true;
+                    ButDeleteIsE = false;
+                }
+                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 4) == true)
+                {
+                    ButAddIsE = false;
+                    ButUpdateIsE = false;
+                    ButDeleteIsE = false;
+                }
+            }
+            else
+            {
+                ButAddIsE = false;
+                ButUpdateIsE = false;
+                ButDeleteIsE = false;
             }
         }
     }
