@@ -6,27 +6,48 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:InventoryClient.View"
         mc:Ignorable="d"
-        Title="Клиент" Height="250" Width="300">
+                Title="Клиент" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0"
-         materialDesign:HintAssist.Hint="Login" Margin="50 20">
+         materialDesign:HintAssist.Hint="Login" Margin="50 10">
             <TextBox.Text>
                 <Binding Path="Personname" UpdateSourceTrigger="PropertyChanged">
                 </Binding>
             </TextBox.Text>
         </TextBox>
         <TextBox Grid.Row="1"
-         materialDesign:HintAssist.Hint="Password" Margin="50 20">
+         materialDesign:HintAssist.Hint="Password" Margin="50 10">
             <TextBox.Text>
                 <Binding Path="Passwordhash" UpdateSourceTrigger="PropertyChanged">
                 </Binding>
             </TextBox.Text>
         </TextBox>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <CheckBox x:Name="CheckBoxAdmin" Grid.Row="0"
+                      IsChecked="{Binding IsAdmin}" 
+                      Content="Администратор"/>
+            <CheckBox x:Name = "CheckBoxManager" Grid.Row="1" 
+                      IsChecked="{Binding IsManager}"  
+                      Content="Менеджер"/>
+            <CheckBox x:Name="CheckBoxUser" Grid.Row="2" 
+                      IsChecked="{Binding IsUser}"  
+                      Content="Пользователь"/>
+            <CheckBox x:Name="CheckBoxGuest" Grid.Row="3" 
+                      IsChecked="{Binding IsGuest}"  
+                      Content="Гостевой доступ"/>
+        </Grid>
         <Grid Grid.Row="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
