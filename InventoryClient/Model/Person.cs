@@ -16,7 +16,7 @@ public partial class Person
         set
         {
             personid = value;
-            OnProperyChanged(nameof(personid));
+            OnPropertyChanged(nameof(personid));
         }
     }
 
@@ -28,7 +28,7 @@ public partial class Person
         set
         {
             personname = value;
-            OnProperyChanged(nameof(personname));
+            OnPropertyChanged(nameof(personname));
         }
     }
 
@@ -40,7 +40,7 @@ public partial class Person
         set
         {
             passwordhash = value;
-            OnProperyChanged(nameof(passwordhash));
+            OnPropertyChanged(nameof(passwordhash));
         }
     }
 
@@ -52,7 +52,7 @@ public partial class Person
         set
         {
             salt = value;
-            OnProperyChanged(nameof(salt));
+            OnPropertyChanged(nameof(salt));
         }
     }
 
@@ -64,17 +64,89 @@ public partial class Person
         set
         {
             createdat = (DateTime)value;
-            OnProperyChanged(nameof(createdat));
+            OnPropertyChanged(nameof(createdat));
         }
     }
 
-    public bool IsAdmin { get; set; } // новое для  Checkbox
-    public bool IsManager { get; set; } // новое для  Checkbox
-    public bool IsUser { get; set; }    //новое для  Checkbox
-    public bool IsGuest { get; set; } //новое для  Checkbox
+    private bool isAdmin;
+    public bool IsAdmin 
+    {
+        get => isAdmin;
+        set
+        {
+            if (value)
+            {
+                isManager = false;
+                isUser = false;
+                isGuest = false;
+                OnPropertyChanged(nameof(isManager));
+                OnPropertyChanged(nameof(isUser));
+                OnPropertyChanged(nameof(isGuest));
+            }
+            isAdmin = value;
+            OnPropertyChanged(nameof(isAdmin));
+        }
+    }
+    private bool isManager;
+    public bool IsManager
+    {
+        get => isManager;
+        set
+        {
+            if (value)
+            {
+                isAdmin = false;
+                isUser = false;
+                isGuest = false;
+                OnPropertyChanged(nameof(isAdmin));
+                OnPropertyChanged(nameof(isUser));
+                OnPropertyChanged(nameof(isGuest));
+            }
+            isManager = value;
+            OnPropertyChanged(nameof(isManager));
+        }
+    }
+    private bool isUser;
+    public bool IsUser
+    {
+        get => isUser;
+        set
+        {
+            if (value)
+            {
+                isAdmin = false;
+                isManager = false;
+                isGuest = false;
+                OnPropertyChanged(nameof(isAdmin));
+                OnPropertyChanged(nameof(isManager));
+                OnPropertyChanged(nameof(isGuest));
+            }
+            isUser = value;
+            OnPropertyChanged(nameof(isUser));
+        }
+    }
+    private bool isGuest;
+    public bool IsGuest
+    {
+        get => isGuest;
+        set
+        {
+            if (value)
+            {
+                isAdmin = false;
+                isManager = false;
+                isUser = false;
+                OnPropertyChanged(nameof(isAdmin));
+                OnPropertyChanged(nameof(isManager));
+                OnPropertyChanged(nameof(isUser));
+            }
+            isGuest = value;
+            OnPropertyChanged(nameof(isGuest));
+        }
+    }
 
     public event PropertyChangedEventHandler? PropertyChanged;
-    public void OnProperyChanged([CallerMemberName] string prop = "")
+    public void OnPropertyChanged([CallerMemberName] string prop = "")
     {
         if (PropertyChanged != null)
         {

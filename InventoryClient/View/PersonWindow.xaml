@@ -36,16 +36,16 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <CheckBox x:Name="CheckBoxAdmin" Grid.Row="0"
-                      IsChecked="{Binding IsAdmin}" 
+                      IsChecked="{Binding IsAdmin, Mode=TwoWay}" 
                       Content="Администратор"/>
             <CheckBox x:Name = "CheckBoxManager" Grid.Row="1" 
-                      IsChecked="{Binding IsManager}"  
+                      IsChecked="{Binding IsManager, Mode=TwoWay}"  
                       Content="Менеджер"/>
             <CheckBox x:Name="CheckBoxUser" Grid.Row="2" 
-                      IsChecked="{Binding IsUser}"  
+                      IsChecked="{Binding IsUser, Mode=TwoWay}"  
                       Content="Пользователь"/>
             <CheckBox x:Name="CheckBoxGuest" Grid.Row="3" 
-                      IsChecked="{Binding IsGuest}"  
+                      IsChecked="{Binding IsGuest, Mode=TwoWay}"  
                       Content="Гостевой доступ"/>
         </Grid>
         <Grid Grid.Row="6">
