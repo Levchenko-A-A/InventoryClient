@@ -15,14 +15,14 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0"
-         materialDesign:HintAssist.Hint="Login" Margin="50 10">
+         materialDesign:HintAssist.Hint="Пользователь" Margin="50 10">
             <TextBox.Text>
                 <Binding Path="Personname" UpdateSourceTrigger="PropertyChanged">
                 </Binding>
             </TextBox.Text>
         </TextBox>
         <TextBox Grid.Row="1"
-         materialDesign:HintAssist.Hint="Password" Margin="50 10">
+         materialDesign:HintAssist.Hint="Пароль" Margin="50 10">
             <TextBox.Text>
                 <Binding Path="Passwordhash" UpdateSourceTrigger="PropertyChanged">
                 </Binding>

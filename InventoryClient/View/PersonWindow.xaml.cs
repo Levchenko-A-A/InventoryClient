@@ -20,12 +20,12 @@ namespace InventoryClient.View
     /// </summary>
     public partial class PersonWindow : Window
     {
-        public Person Person { get; set; }
-        public PersonWindow(Person c)
+        public NewPerson NewPerson { get; set; }
+        public PersonWindow(NewPerson c)
         {
             InitializeComponent();
-            Person = c;
-            DataContext = Person;
+            NewPerson = c;
+            DataContext = NewPerson;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

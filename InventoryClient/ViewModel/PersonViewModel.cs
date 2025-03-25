@@ -58,10 +58,10 @@ namespace InventoryClient.ViewModel
             {
                 return addPersonCommand ?? (addPersonCommand = new RelayCommand(async obj =>
                 {
-                    PersonWindow personWindow = new PersonWindow(new Person());
+                    PersonWindow personWindow = new PersonWindow(new NewPerson());
                     if (personWindow.ShowDialog() == true)
                     {
-                        await sendPerson(personWindow.Person);
+                        await sendPerson(personWindow.NewPerson);
                     }
                 }));
             }
@@ -142,7 +142,7 @@ namespace InventoryClient.ViewModel
                 return new ObservableCollection<Person>();
             }
         }
-        private async Task sendPerson(Person person)
+        private async Task sendPerson(NewPerson person)
         {
             try
             {
