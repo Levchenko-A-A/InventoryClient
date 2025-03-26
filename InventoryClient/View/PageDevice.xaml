@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:InventoryClient.View"
       xmlns:converter="clr-namespace:InventoryClient.Infrastructure.Converters"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="600"
       Title="PageDevice">
     <Page.Resources>
         <converter:CategoryidToNameConverter x:Key="CategoryIdToName"/>
@@ -16,12 +16,42 @@
         <Style x:Key="ItemHeaderText" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Margin" Value="0 0 0 4"/>
         </Style>
-        <Style x:Key="ItemPropertyText" TargetType="TextBlock">
+        <Style x:Key="CatPropertyText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="19"/>
+            <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="Margin" Value="16 0 0 4"/>
+        </Style>
+        <Style x:Key="ManufPropertyText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="19"/>
+            <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="Margin" Value="16 0 0 4"/>
+        </Style>
+        <Style x:Key="LocPropertyText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="Margin" Value="16 0 0 4"/>
+        </Style>
+        <Style x:Key="DescPropertyText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="Margin" Value="16 0 0 4"/>
+        </Style>
+        <Style x:Key="DatPropertyText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Opacity" Value="0.9"/>
             <Setter Property="Margin" Value="16 0 0 4"/>
         </Style>
@@ -68,20 +98,30 @@
                 Background="{DynamicResource PrimaryHueDarkBrush}"
                 Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                 Padding="8"
-                Width="600"
+                Width="450"
                 Margin="10 10"
                 UniformCornerRadius="6">
                         <StackPanel>
-                            <!--<TextBlock Text="{Binding Deviceid}" FontSize="25"/>-->
                             <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderText}"/>
                             <TextBlock Text="{Binding Path=Categoryid, 
                                                       Converter={StaticResource CategoryIdToName}, 
                                                       StringFormat='Категория: {0}'}"  
-                                       Style="{StaticResource ItemPropertyText}"/>
-                            <TextBlock Text="{Binding Path=Manufacturerid, Converter={StaticResource ManufacturerIdToName}}" FontSize="25" />
-                            <TextBlock Text="{Binding Path=Locationid, Converter={StaticResource LocationIdToName}}" FontSize="25" />
-                            <TextBlock Text="{Binding Description}" FontSize="20" />
-                            <TextBlock Text="{Binding Createdat}" FontSize="20" />
+                                       Style="{StaticResource CatPropertyText}"/>
+                            <TextBlock Text="{Binding Path=Manufacturerid, 
+                                                      Converter={StaticResource ManufacturerIdToName}, 
+                                                      StringFormat='Производитель: {0}'}"
+                                       Style="{StaticResource ManufPropertyText}"/>
+                            <TextBlock Text="{Binding Path=Locationid, 
+                                                      Converter={StaticResource LocationIdToName}, 
+                                                      StringFormat='Расположение: {0}'}"
+                                       Style="{StaticResource LocPropertyText}"/>
+                            <TextBlock Text="{Binding Description,
+                                                      StringFormat='Описание: {0}'}" 
+                                       Style="{StaticResource DescPropertyText}"/>
+                            <TextBlock Text="{Binding Createdat,
+                                       TargetNullValue='Дата не указана',
+                                       StringFormat='Дата создания: {0:dd.MM.yyyy}'}"
+                                       Style="{StaticResource DatPropertyText}"/>
                         </StackPanel>
                     </materialDesign:Card>
                 </DataTemplate>
