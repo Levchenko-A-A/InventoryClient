@@ -97,56 +97,6 @@ namespace InventoryClient.ViewModel
                 OnPropertyChanged(nameof(DelPersonRoleButIsE));
             }
         }
-
-        //private RelayCommand addCommand;
-        //public RelayCommand AddCommand
-        //{
-        //    get
-        //    {
-        //        return addCommand ?? (addCommand = new RelayCommand(async obj =>
-        //        {
-        //            RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(new Role());
-        //            if (roleAddUpdateWindow.ShowDialog() == true)
-        //            {
-        //                await sendPersonRole(roleAddUpdateWindow.Role);
-        //            }
-        //        }));
-        //    }
-        //}
-        //private RelayCommand deleteCommand;
-        //public RelayCommand DeleteCommand
-        //{
-        //    get
-        //    {
-        //        return deleteCommand ?? (deleteCommand = new RelayCommand(async (selectedItem) =>
-        //        {
-        //            Personrole? role = selectedItem as Personrole;
-        //            if (role == null) return;
-        //            if (MessageBox.Show("Вы действительно хотите удалить элемент?", "Внимание", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-        //            {
-        //                await delPersonRole(role.Userroleid);
-        //            }
-        //        }));
-        //    }
-        //}
-        //private RelayCommand updateCommand;
-        //public RelayCommand UpdateCommand
-        //{
-        //    get
-        //    {
-        //        return updateCommand ?? (updateCommand = new RelayCommand(async (selectedItem) =>
-        //        {
-        //            Personrole? role = selectedItem as Personrole;
-        //            if (role == null) return;
-        //            RoleAddUpdateWindow roleAddUpdateWindow = new RoleAddUpdateWindow(role);
-        //            if (roleAddUpdateWindow.ShowDialog() == true)
-        //            {
-        //                MessageBox.Show(roleAddUpdateWindow.Role.Description);
-        //                await updatePersonRole(roleAddUpdateWindow.Role);
-        //            }
-        //        }));
-        //    }
-        //}
         private async Task<ObservableCollection<Personrole>> getPersonRole()
         {
             try
@@ -174,33 +124,6 @@ namespace InventoryClient.ViewModel
             {
                 MessageBox.Show($"Неизвестная ошибка: {ex.Message}");
                 return new ObservableCollection<Personrole>();
-            }
-        }
-        private async Task sendPersonRole(Personrole role)
-        {
-            try
-            {
-                JsonContent content = JsonContent.Create(role);
-                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
-                request.Content = content;
-                request.Headers.Add("table", "personrole");
-                using var response = await httpClient.SendAsync(request);
-                string responseText = await response.Content.ReadAsStringAsync();
-                if (responseText == "Error")
-                    MessageBox.Show("Пользователь с таким именем существует");
-                else if (responseText == "OK")
-                {
-                    MessageBox.Show("Пользователь добавлен");
-                    Load();
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"Ошибка HTTP: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка: {ex.Message}");
             }
         }
         public async Task delPersonRole(int personroleId)
