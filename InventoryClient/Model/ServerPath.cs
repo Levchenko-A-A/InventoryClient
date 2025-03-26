@@ -8,7 +8,7 @@ namespace InventoryClient.Model
 {
     public class ServerPath
     {
-        public static string? Path = "http://193.104.57.148:8080/connection/";
-        //public static string? Path = "http://127.0.0.1:8888/connection/";
+        //public static string? Path = "http://193.104.57.148:8080/connection/";
+        public static string? Path = "http://127.0.0.1:8888/connection/";
     }
 }

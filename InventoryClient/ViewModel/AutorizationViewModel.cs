@@ -73,13 +73,42 @@ namespace InventoryClient.ViewModel
                       if (result != "Error")
                       {
                           List<Personrole> personroles = await getPersonRole();
-                          RegisterUser.UserAllId = personroles.Where(p => p.Personid == int.Parse(result)).ToList();
-                          Visibility = Visibility.Hidden;
-                          BasicWindow basicWindow = new BasicWindow();
-                          basicWindow.Show();
+                          //RegisterUser.UserAllId = personroles.Where(p => p.Personid == int.Parse(result)).ToList();
+                          string token = result;
+                          MessageBox.Show(token);
+                          Application.Current.Properties["JwtToken"] = token;
+                          string valToken = await ValidateToken(token);
+                          MessageBox.Show(valToken);
+                          //Visibility = Visibility.Hidden;
+                          //BasicWindow basicWindow = new BasicWindow();
+                          //basicWindow.Show();
                       }
                       else MessageBox.Show("Пользователя с таким именем или паролем не существует!");
                   }));
+            }
+        }
+        public static async Task<string> ValidateToken(string token)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(token);
+                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
+                request.Content = content;
+                request.Headers.Add("table", "ValidateToken");
+                using var response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                string answer = JsonSerializer.Deserialize<string>(responseText)!;
+                return answer;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Ошибка HTTP: {ex.Message}");
+                return "Error";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+                return "Error";
             }
         }
 
