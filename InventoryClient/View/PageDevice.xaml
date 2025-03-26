@@ -13,6 +13,18 @@
         <converter:CategoryidToNameConverter x:Key="CategoryIdToName"/>
         <converter:ManufactureridToNameConverter x:Key="ManufacturerIdToName"/>
         <converter:LocationidToNameConverter x:Key="LocationIdToName"/>
+        <Style x:Key="ItemHeaderText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0 0 0 4"/>
+        </Style>
+        <Style x:Key="ItemPropertyText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="Margin" Value="16 0 0 4"/>
+        </Style>
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -56,13 +68,16 @@
                 Background="{DynamicResource PrimaryHueDarkBrush}"
                 Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                 Padding="8"
-                Width="900"
+                Width="600"
                 Margin="10 10"
                 UniformCornerRadius="6">
                         <StackPanel>
-                            <TextBlock Text="{Binding Deviceid}" FontSize="25" />
-                            <TextBlock Text="{Binding Name}" FontSize="25" />
-                            <TextBlock Text="{Binding Path=Categoryid, Converter={StaticResource CategoryIdToName}}" FontSize="25" />
+                            <!--<TextBlock Text="{Binding Deviceid}" FontSize="25"/>-->
+                            <TextBlock Text="{Binding Name}" FontSize="25" Style="{StaticResource ItemHeaderText}"/>
+                            <TextBlock Text="{Binding Path=Categoryid, 
+                                                      Converter={StaticResource CategoryIdToName}, 
+                                                      StringFormat='Категория: {0}'}" 
+                                       FontSize="25" />
                             <TextBlock Text="{Binding Path=Manufacturerid, Converter={StaticResource ManufacturerIdToName}}" FontSize="25" />
                             <TextBlock Text="{Binding Path=Locationid, Converter={StaticResource LocationIdToName}}" FontSize="25" />
                             <TextBlock Text="{Binding Description}" FontSize="20" />
