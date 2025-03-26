@@ -73,11 +73,11 @@
                 UniformCornerRadius="6">
                         <StackPanel>
                             <!--<TextBlock Text="{Binding Deviceid}" FontSize="25"/>-->
-                            <TextBlock Text="{Binding Name}" FontSize="25" Style="{StaticResource ItemHeaderText}"/>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderText}"/>
                             <TextBlock Text="{Binding Path=Categoryid, 
                                                       Converter={StaticResource CategoryIdToName}, 
-                                                      StringFormat='Категория: {0}'}" 
-                                       FontSize="25" />
+                                                      StringFormat='Категория: {0}'}"  
+                                       Style="{StaticResource ItemPropertyText}"/>
                             <TextBlock Text="{Binding Path=Manufacturerid, Converter={StaticResource ManufacturerIdToName}}" FontSize="25" />
                             <TextBlock Text="{Binding Path=Locationid, Converter={StaticResource LocationIdToName}}" FontSize="25" />
                             <TextBlock Text="{Binding Description}" FontSize="20" />
