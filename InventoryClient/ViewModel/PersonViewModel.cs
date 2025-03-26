@@ -53,6 +53,64 @@ namespace InventoryClient.ViewModel
             }
         }
 
+        private int GetRoleIdByCheckbox(Person person) //новое
+        {
+            if (person.IsAdmin) return 1; 
+            if (person.IsManager) return 2; 
+            if (person.IsUser) return 3; 
+            if (person.IsGuest) return 4; 
+            return -1; 
+        }
+        private async Task InsertIntoPersonRoles(int personId, int roleId)//новое
+        {
+            try
+            {
+                Personrole personrole = new Personrole
+                {
+                    Personid = personId,
+                    Roleid = roleId
+                };
+                JsonContent content = JsonContent.Create(personrole);
+                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
+                request.Content = content;
+                request.Headers.Add("table", "personrole");
+                using var response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                if (responseText == "OK")
+                {
+                    MessageBox.Show("Связь успешно создана.");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при создании связи.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при создании связи: {ex.Message}");
+            }
+        }
+        private async Task<bool> CheckIfLoginExists(string login)// новое
+        {
+            try
+            {
+                StringContent content = new StringContent(login);
+                using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("table", "person"); // Используем таблицу 'person' для проверки
+                request.Content = content;
+                using HttpResponseMessage response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                // Предположим, что сервер возвращает количество записей с данным логином
+                int count = int.Parse(responseText);
+                return count > 0; // Если больше нуля, значит логин занят
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при проверке логина: {ex.Message}");
+                return false;
+            }
+        }
+
         private RelayCommand addPersonCommand;
         public RelayCommand AddPersonCommand
         {
@@ -73,14 +131,25 @@ namespace InventoryClient.ViewModel
                     //    }
                     if (personWindow.ShowDialog() == true)
                     {
-                        if (RegisterUser.UserName!=null)
+                        Person person = personWindow.Person;
+                        bool isLoginExists = await CheckIfLoginExists(person.Personname);
+                        if (!isLoginExists)
                         {
-                           
-                        }    
+                            // Добавляем логин
+                           // bool succes = await sendPerson(person);
+                            //if(succes)
+                            {
+                                // Получение ID роли
+                                int roleId = GetRoleIdByCheckbox(person);
+
+                                // Вставка связи в таблицу personroles
+                                await InsertIntoPersonRoles(person.Personid, roleId);
+                            }
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Роль не соответствует требованиям.");
+                        MessageBox.Show("Логин уже существует.");
                     }
                     if (personWindow.Person.IsManager)
                     {
@@ -241,3 +310,4 @@ namespace InventoryClient.ViewModel
         }
     }
 }
+
