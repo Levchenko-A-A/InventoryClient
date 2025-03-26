@@ -70,15 +70,17 @@ namespace InventoryClient.ViewModel
                       string passWord = password!.Password;
                       RegisterUser.UserName = Login;
                       string result = await VerifyPassword(userName, passWord);
+
                       if (result != "Error")
                       {
                           List<Personrole> personroles = await getPersonRole();
                           //RegisterUser.UserAllId = personroles.Where(p => p.Personid == int.Parse(result)).ToList();
                           string token = result;
+                          RegisterUser.access_token = result;
                           MessageBox.Show(token);
-                          Application.Current.Properties["JwtToken"] = token;
-                          string valToken = await ValidateToken(token);
-                          MessageBox.Show(valToken);
+                          //Application.Current.Properties["JwtToken"] = token;
+                          //string valToken = await ValidateToken(token);
+                          //MessageBox.Show(valToken);
                           //Visibility = Visibility.Hidden;
                           //BasicWindow basicWindow = new BasicWindow();
                           //basicWindow.Show();
@@ -93,6 +95,7 @@ namespace InventoryClient.ViewModel
             {
                 JsonContent content = JsonContent.Create(token);
                 var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
+                httpClient.DefaultRequestHeaders.Add("Authorization", RegisterUser.access_token);
                 request.Content = content;
                 request.Headers.Add("table", "ValidateToken");
                 using var response = await httpClient.SendAsync(request);
