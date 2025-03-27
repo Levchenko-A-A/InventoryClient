@@ -79,8 +79,6 @@
                                        Style="{StaticResource UserPropertyText}"/>
                             <TextBlock Text="{Binding Email}" 
                                        Style="{StaticResource MailPropertyText}"/>
-                            <!--<TextBlock Text="{Binding Passwordhash}" FontSize="30" />
-                            <TextBlock Text="{Binding Salt}" FontSize="30" />-->
                         </StackPanel>
                     </materialDesign:Card>
                 </DataTemplate>
