@@ -33,6 +33,18 @@ public partial class NewPerson : BaseViewModel
         }
     }
 
+    private string email;
+    [JsonPropertyName("email")]
+    public string Email
+    {
+        get => email;
+        set
+        {
+            email = value;
+            OnPropertyChanged(nameof(email));
+        }
+    }
+
     private string passwordhash;
     [JsonPropertyName("passwordhash")]
     public string Passwordhash

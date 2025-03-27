@@ -8,6 +8,29 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PagePerson">
+    <Page.Resources>
+        <Style x:Key="ItemHeaderText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0 0 0 4"/>
+        </Style>
+        <Style x:Key="UserPropertyText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="19"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="Margin" Value="16 0 0 4"/>
+        </Style>
+        <Style x:Key="MailPropertyText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="19"/>
+            <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="Margin" Value="16 0 0 4"/>
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="9*"/>
@@ -46,14 +69,18 @@
                Background="{DynamicResource PrimaryHueDarkBrush}"
                Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                Padding="8"
-               Width="900"
+               Width="450"
                Margin="10 10"
                UniformCornerRadius="6">
                         <StackPanel>
-                            <TextBlock Text="{Binding Personid}" FontSize="30" />
-                            <TextBlock Text="{Binding Personname}" FontSize="30" />
-                            <TextBlock Text="{Binding Passwordhash}" FontSize="30" />
-                            <TextBlock Text="{Binding Salt}" FontSize="30" />
+                            <TextBlock Text="{Binding Personid}"
+                                       Style="{StaticResource ItemHeaderText}"/>
+                            <TextBlock Text="{Binding Personname}" 
+                                       Style="{StaticResource UserPropertyText}"/>
+                            <TextBlock Text="{Binding Email}" 
+                                       Style="{StaticResource MailPropertyText}"/>
+                            <!--<TextBlock Text="{Binding Passwordhash}" FontSize="30" />
+                            <TextBlock Text="{Binding Salt}" FontSize="30" />-->
                         </StackPanel>
                     </materialDesign:Card>
                 </DataTemplate>

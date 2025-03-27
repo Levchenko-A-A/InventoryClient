@@ -73,10 +73,8 @@ namespace InventoryClient.ViewModel
 
                       if (result != null)
                       {
-                          //List<Personrole> personroles = await getPersonRole();
                           RegisterUser.Role = result.Role;
                           RegisterUser.access_token = result.access_token;
-                          MessageBox.Show(RegisterUser.access_token);
                           string respon = await ValidateToken(RegisterUser.access_token!);
                           if (respon == "OK")
                           {
