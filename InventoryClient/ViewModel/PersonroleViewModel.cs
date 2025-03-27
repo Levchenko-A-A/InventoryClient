@@ -103,6 +103,7 @@ namespace InventoryClient.ViewModel
             {
                 StringContent content = new StringContent("getPersonRole");
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "personrole");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -133,6 +134,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(personroleId);
                 var request = new HttpRequestMessage(HttpMethod.Delete, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "personrole");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
@@ -160,6 +162,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(personrole);
                 var request = new HttpRequestMessage(HttpMethod.Put, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "personrole");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();

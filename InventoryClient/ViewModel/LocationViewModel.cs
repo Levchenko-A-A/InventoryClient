@@ -136,6 +136,7 @@ namespace InventoryClient.ViewModel
             {
                 StringContent content = new StringContent("getLocationAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "location");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -168,6 +169,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(location);
                 var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "location");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
@@ -195,6 +197,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(locationId);
                 var request = new HttpRequestMessage(HttpMethod.Delete, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "location");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
@@ -222,6 +225,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(location);
                 var request = new HttpRequestMessage(HttpMethod.Put, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "location");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
@@ -238,33 +242,32 @@ namespace InventoryClient.ViewModel
         }
         private void StatusButtom()
         {
-            if (RegisterUser.UserAllId != null)
+
+            if (RegisterUser.Role == "1")
             {
-                if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
-                {
-                    ButAddIsE = true;
-                    ButUpdateIsE = true;
-                    ButDeleteIsE = true;
-                }
-                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 2) == true)
-                {
-                    ButAddIsE = true;
-                    ButUpdateIsE = true;
-                    ButDeleteIsE = true;
-                }
-                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
-                {
-                    ButAddIsE = true;
-                    ButUpdateIsE = true;
-                    ButDeleteIsE = false;
-                }
-                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 4) == true)
-                {
-                    ButAddIsE = false;
-                    ButUpdateIsE = false;
-                    ButDeleteIsE = false;
-                }
+                ButAddIsE = true;
+                ButUpdateIsE = true;
+                ButDeleteIsE = true;
             }
+            else if (RegisterUser.Role == "2")
+            {
+                ButAddIsE = true;
+                ButUpdateIsE = true;
+                ButDeleteIsE = true;
+            }
+            else if (RegisterUser.Role == "3")
+            {
+                ButAddIsE = true;
+                ButUpdateIsE = true;
+                ButDeleteIsE = false;
+            }
+            else if (RegisterUser.Role == "4")
+            {
+                ButAddIsE = false;
+                ButUpdateIsE = false;
+                ButDeleteIsE = false;
+            }
+
             else
             {
                 ButAddIsE = false;

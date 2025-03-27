@@ -107,6 +107,7 @@ namespace InventoryClient.ViewModel
             {
                 StringContent content = new StringContent("getRolleAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "role");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -137,6 +138,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(role);
                 var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "role");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
@@ -164,6 +166,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(clientId);
                 var request = new HttpRequestMessage(HttpMethod.Delete, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "role");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
@@ -191,6 +194,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(role);
                 var request = new HttpRequestMessage(HttpMethod.Put, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "role");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();

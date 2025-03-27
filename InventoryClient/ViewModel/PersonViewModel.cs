@@ -119,6 +119,7 @@ namespace InventoryClient.ViewModel
             {
                 StringContent content = new StringContent("getPersonAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "person");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -149,6 +150,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(person);
                 var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "person");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
@@ -176,6 +178,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(clientId);
                 var request = new HttpRequestMessage(HttpMethod.Delete, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "person");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();

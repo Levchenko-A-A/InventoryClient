@@ -142,42 +142,41 @@ namespace InventoryClient.ViewModel
         }
         private void StatusButtom()
         {
-            if (RegisterUser.UserAllId != null)
+
+            if (RegisterUser.Role == "1")
             {
-                if (RegisterUser.UserAllId.Any(p => p.Roleid == 1) == true)
-                {
-                    ButPersonIsE = true;
-                    ButCategoryIsE = true;
-                    ButDeviceIsE = true;
-                    ButManufIsE = true;
-                    ButLocationIsE = true;
-                }
-                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 2) == true)
-                {
-                    ButPersonIsE = false;
-                    ButCategoryIsE = true;
-                    ButDeviceIsE = true;
-                    ButManufIsE = true;
-                    ButLocationIsE = true;
-                }
-                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 3) == true)
-                {
-                    ButPersonIsE = false;
-                    ButCategoryIsE = true;
-                    ButDeviceIsE = true;
-                    ButManufIsE = true;
-                    ButLocationIsE = true;
-                }
-                else if (RegisterUser.UserAllId.Any(p => p.Roleid == 4) == true)
-                {
-                    ButPersonIsE = false;
-                    ButCategoryIsE = false;
-                    ButDeviceIsE = false;
-                    ButManufIsE = false;
-                    ButLocationIsE = false;
-                    
-                }
+                ButPersonIsE = true;
+                ButCategoryIsE = true;
+                ButDeviceIsE = true;
+                ButManufIsE = true;
+                ButLocationIsE = true;
             }
+            else if (RegisterUser.Role == "2")
+                {
+                ButPersonIsE = false;
+                ButCategoryIsE = true;
+                ButDeviceIsE = true;
+                ButManufIsE = true;
+                ButLocationIsE = true;
+            }
+            else if (RegisterUser.Role == "3")
+                {
+                ButPersonIsE = false;
+                ButCategoryIsE = true;
+                ButDeviceIsE = true;
+                ButManufIsE = true;
+                ButLocationIsE = true;
+            }
+            else if (RegisterUser.Role == "4")
+                {
+                ButPersonIsE = false;
+                ButCategoryIsE = false;
+                ButDeviceIsE = false;
+                ButManufIsE = false;
+                ButLocationIsE = false;
+
+            }
+
             else
             {
                 ButPersonIsE = false;
@@ -187,5 +186,6 @@ namespace InventoryClient.ViewModel
                 ButLocationIsE = false;
             }
         }
+
     }
 }

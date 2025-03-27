@@ -32,6 +32,7 @@ namespace InventoryClient.Infrastructure.Converters
             {
                 JsonContent content = JsonContent.Create(manufId);
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "manufacturer");
                 request.Content = content;
                 using var response = await httpClient.SendAsync(request);

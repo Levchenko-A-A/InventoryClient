@@ -73,43 +73,23 @@ namespace InventoryClient.ViewModel
 
                       if (result != null)
                       {
-                          List<Personrole> personroles = await getPersonRole();
+                          //List<Personrole> personroles = await getPersonRole();
                           RegisterUser.Role = result.Role;
                           RegisterUser.access_token = result.access_token;
                           MessageBox.Show(RegisterUser.access_token);
-                          //Visibility = Visibility.Hidden;
-                          //BasicWindow basicWindow = new BasicWindow();
-                          //basicWindow.Show();
+                          string respon = await ValidateToken(RegisterUser.access_token!);
+                          if (respon == "OK")
+                          {
+                              Visibility = Visibility.Hidden;
+                              BasicWindow basicWindow = new BasicWindow();
+                              basicWindow.Show();
+                          }
                       }
                       else MessageBox.Show("Пользователя с таким именем или паролем не существует!");
                   }));
             }
         }
-        public static async Task<string> ValidateToken(string token)
-        {
-            try
-            {
-                JsonContent content = JsonContent.Create(token);
-                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
-                httpClient.DefaultRequestHeaders.Add("Authorization", RegisterUser.access_token);
-                request.Content = content;
-                request.Headers.Add("table", "ValidateToken");
-                using var response = await httpClient.SendAsync(request);
-                string responseText = await response.Content.ReadAsStringAsync();
-                string answer = JsonSerializer.Deserialize<string>(responseText)!;
-                return answer;
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"Ошибка HTTP: {ex.Message}");
-                return "Error";
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка: {ex.Message}");
-                return "Error";
-            }
-        }
+        
 
         public static async Task<RegUser> VerifyPassword(string username, string password)
         {
@@ -124,7 +104,7 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(requestData);
                 var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
-                request.Headers.Add("username", username);
+                request.Headers.Add("toke", username);
                 request.Headers.Add("table", "verifyPasswordPerson");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
@@ -140,6 +120,32 @@ namespace InventoryClient.ViewModel
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
                 return new RegUser();
+            }
+        }
+        public static async Task<string> ValidateToken(string token)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(token);
+                var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
+                //httpClient.DefaultRequestHeaders.Add("Authorization", RegisterUser.access_token);
+                request.Content = content;
+                request.Headers.Add("token", RegisterUser.access_token);
+                request.Headers.Add("table", "ValidateToken");
+                using var response = await httpClient.SendAsync(request);
+                string responseText = await response.Content.ReadAsStringAsync();
+                //string answer = JsonSerializer.Deserialize<string>(responseText)!;
+                return responseText;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Ошибка HTTP: {ex.Message}");
+                return "Error";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+                return "Error";
             }
         }
         private async Task<List<Personrole>> getPersonRole()
