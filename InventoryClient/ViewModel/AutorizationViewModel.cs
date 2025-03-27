@@ -69,16 +69,14 @@ namespace InventoryClient.ViewModel
                       string userName = Login;
                       string passWord = password!.Password;
                       RegisterUser.UserName = Login;
-                      string result = await VerifyPassword(userName, passWord);
+                      RegUser result = await VerifyPassword(userName, passWord);
 
-                      if (result != "Error")
+                      if (result != null)
                       {
                           List<Personrole> personroles = await getPersonRole();
-                          //RegisterUser.UserAllId = personroles.Where(p => p.Personid == int.Parse(result)).ToList();
-
-                          RegisterUser.access_token = result;
-                          MessageBox.Show(result);
-                          
+                          RegisterUser.Role = result.Role;
+                          RegisterUser.access_token = result.access_token;
+                          MessageBox.Show(RegisterUser.access_token);
                           //Visibility = Visibility.Hidden;
                           //BasicWindow basicWindow = new BasicWindow();
                           //basicWindow.Show();
@@ -113,7 +111,7 @@ namespace InventoryClient.ViewModel
             }
         }
 
-        public static async Task<string> VerifyPassword(string username, string password)
+        public static async Task<RegUser> VerifyPassword(string username, string password)
         {
             try
             {
@@ -126,21 +124,22 @@ namespace InventoryClient.ViewModel
                 JsonContent content = JsonContent.Create(requestData);
                 var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
+                request.Headers.Add("username", username);
                 request.Headers.Add("table", "verifyPasswordPerson");
                 using var response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
-                string answer = JsonSerializer.Deserialize<string>(responseText)!;
-                return answer;
+                var registerUser = JsonSerializer.Deserialize<RegUser>(responseText)!;
+                return registerUser;
             }
             catch (HttpRequestException ex)
             {
                 Console.WriteLine($"Ошибка HTTP: {ex.Message}");
-                return "Error";
+                return new RegUser();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Ошибка: {ex.Message}");
-                return "Error";
+                return new RegUser();
             }
         }
         private async Task<List<Personrole>> getPersonRole()
@@ -149,6 +148,7 @@ namespace InventoryClient.ViewModel
             {
                 StringContent content = new StringContent("getPersonRole");
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("username", RegisterUser.UserName);
                 request.Headers.Add("table", "personrole");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);

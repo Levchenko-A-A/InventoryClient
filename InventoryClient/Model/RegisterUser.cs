@@ -10,7 +10,7 @@ namespace InventoryClient.Model
     {
         public static string? UserName { get; set; }
         public static string? access_token { get; set; }
-        public string? Role { get; set; }
+        public static string? Role { get; set; }
         public static List<Personrole>? UserAllId { get; set; }
     }
 }
