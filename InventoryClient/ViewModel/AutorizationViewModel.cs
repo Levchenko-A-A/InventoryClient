@@ -117,13 +117,13 @@ namespace InventoryClient.ViewModel
         {
             try
             {
-                JsonUser authData = new JsonUser()
+                JsonUser requestData = new JsonUser()
                 {
                     UserName = username,
                     Password = password
                 };
 
-                JsonContent content = JsonContent.Create(authData);
+                JsonContent content = JsonContent.Create(requestData);
                 var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "verifyPasswordPerson");
