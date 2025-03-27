@@ -78,9 +78,7 @@ namespace InventoryClient.ViewModel
 
                           RegisterUser.access_token = result;
                           MessageBox.Show(result);
-                          //Application.Current.Properties["JwtToken"] = token;
-                          //string valToken = await ValidateToken(token);
-                          //MessageBox.Show(valToken);
+                          
                           //Visibility = Visibility.Hidden;
                           //BasicWindow basicWindow = new BasicWindow();
                           //basicWindow.Show();
