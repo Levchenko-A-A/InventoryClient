@@ -75,9 +75,9 @@ namespace InventoryClient.ViewModel
                       {
                           List<Personrole> personroles = await getPersonRole();
                           //RegisterUser.UserAllId = personroles.Where(p => p.Personid == int.Parse(result)).ToList();
-                          string token = result;
+
                           RegisterUser.access_token = result;
-                          MessageBox.Show(token);
+                          MessageBox.Show(result);
                           //Application.Current.Properties["JwtToken"] = token;
                           //string valToken = await ValidateToken(token);
                           //MessageBox.Show(valToken);
@@ -119,12 +119,13 @@ namespace InventoryClient.ViewModel
         {
             try
             {
-                JsonUser requestData = new JsonUser()
+                JsonUser authData = new JsonUser()
                 {
                     UserName = username,
                     Password = password
                 };
-                JsonContent content = JsonContent.Create(requestData);
+
+                JsonContent content = JsonContent.Create(authData);
                 var request = new HttpRequestMessage(HttpMethod.Post, ServerPath.Path);
                 request.Content = content;
                 request.Headers.Add("table", "verifyPasswordPerson");
