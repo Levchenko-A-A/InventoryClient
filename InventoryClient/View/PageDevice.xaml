@@ -55,6 +55,13 @@
             <Setter Property="Opacity" Value="0.9"/>
             <Setter Property="Margin" Value="16 0 0 4"/>
         </Style>
+        <Style x:Key="InventoryNumberDisplay" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Opacity" Value="0.9"/>
+            <Setter Property="Margin" Value="16 0 0 4"/>
+        </Style>
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -122,6 +129,9 @@
                                        TargetNullValue='Дата не указана',
                                        StringFormat='Дата создания: {0:dd.MM.yyyy}'}"
                                        Style="{StaticResource DatPropertyText}"/>
+                            <TextBlock Text="{Binding InventoryNumberDisplay,
+                                       StringFormat='Инвентарный номер: {0}'}"
+                                       Style="{StaticResource InventoryNumberDisplay}"/>
                         </StackPanel>
                     </materialDesign:Card>
                 </DataTemplate>

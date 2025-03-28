@@ -11,7 +11,7 @@ public partial class Inventorynumber
     [JsonPropertyName("deviceid")]
     public int? Deviceid { get; set; }
     [JsonPropertyName("number")]
-    public string Number { get; set; } = null!;
+    public string Number { get; set; }
     [JsonPropertyName("createdat")]
     public DateTime? Createdat { get; set; }
     [JsonIgnore]
