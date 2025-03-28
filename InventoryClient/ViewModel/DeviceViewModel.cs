@@ -135,7 +135,7 @@ namespace InventoryClient.ViewModel
         {
             try
             {
-                StringContent content = new StringContent("getLocation");
+                StringContent content = new StringContent("getDevice");
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
                 request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "device");
@@ -143,6 +143,21 @@ namespace InventoryClient.ViewModel
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
                 string responseText = await response.Content.ReadAsStringAsync();
                 List<Device> devices = JsonSerializer.Deserialize<List<Device>>(responseText)!;
+                //devices = devices.OrderBy(p => p.Deviceid).ToList();
+                //foreach (var device in devices)
+                //{
+                //    if (device.Deviceid > 0)
+                //    {
+                //        JsonContent content2 = JsonContent.Create(device.Deviceid);
+                //        using var request2 = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                //        request2.Headers.Add("token", RegisterUser.access_token);
+                //        request2.Headers.Add("table", "inventorynumber");
+                //        request2.Content = content;
+                //        using var response2 = await httpClient.SendAsync(request2);
+                //        string responseText2 = await response.Content.ReadAsStringAsync();
+                //        device.Inventorynumbers = JsonSerializer.Deserialize<List<Inventorynumber>>(responseText2)!;
+                //    }
+                //}
                 devices = devices.OrderBy(p => p.Deviceid).ToList();
                 return new ObservableCollection<Device>(devices);
             }

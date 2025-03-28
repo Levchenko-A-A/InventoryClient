@@ -91,6 +91,17 @@ public partial class Device
             OnProperyChanged(nameof(createdat));
         }
     }
+    private string innventoryNumberDisplay;
+    [JsonIgnore]
+    public string InventoryNumberDisplay
+    {
+        get => innventoryNumberDisplay;
+        set
+        {
+            innventoryNumberDisplay = value;
+            OnProperyChanged(nameof(innventoryNumberDisplay));
+        }
+    }
     [JsonIgnore]
     public virtual ICollection<Barcode> Barcodes { get; set; } = new List<Barcode>();
     [JsonIgnore]
@@ -101,7 +112,7 @@ public partial class Device
     public virtual Location? Location { get; set; }
     [JsonIgnore]
     public virtual Manufacturer? Manufacturer { get; set; }
-
+    
     public event PropertyChangedEventHandler? PropertyChanged;
     public void OnProperyChanged([CallerMemberName] string prop = "")
     {
