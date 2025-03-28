@@ -49,6 +49,7 @@ namespace InventoryClient.View
             {
                 StringContent content = new StringContent("getCategoryAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "category");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -78,6 +79,7 @@ namespace InventoryClient.View
             {
                 StringContent content = new StringContent("getManufacturerAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "manufacturer");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
@@ -107,6 +109,7 @@ namespace InventoryClient.View
             {
                 StringContent content = new StringContent("getLocationAll");
                 using var request = new HttpRequestMessage(HttpMethod.Get, ServerPath.Path);
+                request.Headers.Add("token", RegisterUser.access_token);
                 request.Headers.Add("table", "location");
                 request.Content = content;
                 using HttpResponseMessage response = await httpClient.SendAsync(request);
